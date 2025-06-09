@@ -30,10 +30,18 @@
     </button>
 
     <ul>
-        <li class="mb-2"><a href="#" class="roboto hover:underline">Home</a></li>
-        <li class="mb-2"><a href="#" class="roboto hover:underline">Sewa Lapangan</a></li>
-        <li class="mb-2"><a href="#" class="roboto hover:underline">Main Bareng</a></li>
-        <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
+        <li class="mb-2"><a href="{{ route('venues') }}" class="roboto hover:underline">Dashboard</a></li>
+        <li class="mb-2"><a href="#" class="roboto hover:underline">Reserve a Venue</a></li>
+        <li class="mb-2"><a href="#" class="roboto hover:underline">Partner with us</a></li>
+        <li class="mb-2"><a href="#" class="roboto hover:underline">Blog</a></li>
+        @guest
+            <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
+        @endguest
+
+        @auth
+            <li class="mb-2"><a href="/login" class="roboto hover:underline">Log Out</a></li>
+        @endauth
+        
     </ul>
 </aside>
 

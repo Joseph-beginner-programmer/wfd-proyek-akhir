@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VenueController;
 use Illuminate\Support\Facades\Route;
+
+Route::redirect('/', '/landing');
 
 Route::get('/landing', function () {
     return view('pages.landing');
-})->middleware(['auth', 'verified'])->name('landing');;
+})->name('landing');
+
+#Venue Listing
+Route::get('venueList', [VenueController::class, 'index'])->name('venues');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
