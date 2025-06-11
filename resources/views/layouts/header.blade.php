@@ -35,13 +35,22 @@
         <li class="mb-2"><a href="#" class="roboto hover:underline">Partner with us</a></li>
         <li class="mb-2"><a href="#" class="roboto hover:underline">Blog</a></li>
         @guest
-            <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
+        <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
         @endguest
 
         @auth
-            <li class="mb-2"><a href="/login" class="roboto hover:underline">Log Out</a></li>
+        <li class="mb-2">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')"
+                    onclick="event.preventDefault();
+        this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-dropdown-link>
+        </li>
         @endauth
-        
+
     </ul>
 </aside>
 

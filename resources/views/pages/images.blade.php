@@ -1,4 +1,4 @@
-<div class="flex max-w-[80%] mx-auto justify-between mt-10">
+<div class="flex max-w-[80%] mx-auto justify-between mt-16">
     <!-- first column -->
      <div class="flex flex-col gap-4">
         <img src="{{ asset('images/basketball.jpeg') }}" class="h-[6rem] w-[12rem] rounded-lg">
