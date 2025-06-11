@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VenueController;
 use Illuminate\Support\Facades\Route;
@@ -11,8 +12,19 @@ Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
 
+
+Route::get('product', [ProductController::class, 'index'])->name('venues');
+// Route::get('productcreate', [ProductController::class, 'show'])->name('venues.create');
+Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
+Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
+
+// Route::get('product/create', ProductController::class, 'create')->name('venues.create');
+
+// Route::resource('products', ProductController::class);
+
+
 #Venue Listing
-Route::get('venueList', [VenueController::class, 'index'])->name('venues');
+// Route::get('venueList', [VenueController::class, 'index'])->name('venues');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,7 +42,5 @@ Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])
     });
     
 });
-
-
 
 require __DIR__.'/auth.php';
