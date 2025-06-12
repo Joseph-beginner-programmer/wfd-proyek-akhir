@@ -26,15 +26,8 @@
                 </div>
                 @endif --}}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
-=======
-                <form action="{{ route('venues.store') }}" method="POST">
->>>>>>> Joseph
-=======
-                <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
->>>>>>> Joseph
+
                     @csrf
                     <div class="space-y-6">
 
