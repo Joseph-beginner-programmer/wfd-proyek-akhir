@@ -9,8 +9,12 @@
             <h1 class="text-blue-800 monteserrat-title text-2xl mb-3">
                 Reservasi Venue Online Terbaik
             </h1>
+<<<<<<< HEAD
             <a href="/create"
                 class="bg-blue-800 px-4 py-2 monteserrat-body rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out">
+=======
+            <a href="/create" class="bg-blue-800 px-4 py-2 monteserrat-body rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out">
+>>>>>>> Joseph
                 Daftarkan Venue -></a>
         </div>
 
@@ -45,9 +49,9 @@
 
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-900">{{ $venue->name }}</h3>
-
-                            <p class="text-sm text-gray-600 mt-1">{{ $venue->tipeVenue->type_name }}</p>
-
+                            
+                                <p class="text-sm text-gray-600 mt-1">{{ $venue->tipeVenue->type_name }}</p>
+                            
                             <div class="flex items-center mt-3 text-gray-700">
                                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path
