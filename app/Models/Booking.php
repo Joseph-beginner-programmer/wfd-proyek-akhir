@@ -9,6 +9,12 @@ class Booking extends Model
 
     protected $primaryKey = 'booking_id';
     
+    protected $fillable = [
+        'user_id',
+        'venue_id',
+        'booking_date',
+        'booking_status'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
