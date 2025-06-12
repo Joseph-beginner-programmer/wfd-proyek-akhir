@@ -15,7 +15,10 @@ class ProductController extends Controller
     {
         $venues = Venue::all();
         $tipe_venue = tipe_venue::all();
-        return view('pages.product', ['venues' => $venues, 'tipe_venue' => $tipe_venue]);
+        return view('pages.product', [
+            'venues' => $venues,
+            'tipe_venue' =>$tipe_venue
+        ]);
     }
 
     /**
@@ -37,13 +40,16 @@ class ProductController extends Controller
             'name'          => 'required|string|max:255',
             'address'       => 'required|string',
             'description'   => 'required|string',
-            'price_per_hour' => 'required|integer|min:0',
-            'capacity'      => 'required|integer|min:1',
+            'price_per_hour' => 'required|integer',
+            'capacity'      => 'required|integer',
             'provinsi'      => 'required|string|max:255',
             'phone_contact' => 'required|string|max:20',
+            'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        Venue::create($validatedData);
-        return redirect()->route('venues');
+        if ($validatedData) {
+            Venue::create($validatedData);
+            return redirect()->route('venues');
+        }
     }
 
     /**

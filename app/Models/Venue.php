@@ -20,10 +20,8 @@ class Venue extends Model
         'Image_path',
         'type_id'
     ];
-    public function tipe_venue(): BelongsTo
+    public function tipeVenue(): BelongsTo
     {
-        return $this ->belongsTo(tipe_venue::class,'type_id','type_id');
+        return $this->belongsTo(tipe_venue::class, 'type_id', 'type_id');
     }
-    
 }
-
