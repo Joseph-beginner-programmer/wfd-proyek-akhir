@@ -5,12 +5,12 @@
             <div class="lg:col-span-2 space-y-10">
 
                 <div class="relative">
-                    <img src="{{ asset('storage/'  .  $venue->image_path) }}"
-                        alt="Foto utama venue" class="w-full h-72 lg:h-96 object-cover rounded-xl shadow-lg">
+                    <img src="{{ asset('storage/' . $venue->image_path) }}" alt="Foto utama venue"
+                        class="w-full h-72 lg:h-96 object-cover rounded-xl shadow-lg">
                 </div>
 
                 <div>
-                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900">{{ $venue->name}}</h1>
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900">{{ $venue->name }}</h1>
                     <div class="flex items-center text-gray-600 mt-2">
                         <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -20,7 +20,8 @@
                         <span>4.7 • {{ $venue->provinsi }}, {{ $venue->address }}</span>
                     </div>
                     <div class="mt-3">
-                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">{{ $venue->tipeVenue->type_name }}</span>
+                        <span
+                            class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">{{ $venue->tipeVenue->type_name }}</span>
                     </div>
                 </div>
 
@@ -41,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="border-t border-gray-200 pt-8">
+                <div class="border-t border-gray-200 pt-8" id="jadwal-section">
                     <h2 class="text-xl font-bold text-gray-800 mb-4">Pilih Lapangan</h2>
 
                     <div class="flex items-center space-x-2 pb-4 overflow-x-auto">
@@ -109,11 +110,11 @@
                         <p class="text-gray-500">Mulai dari</p>
                         <p class="text-3xl font-bold text-blue-700 my-2">{{ $venue->price_per_hour }} <span
                                 class="text-base font-normal text-gray-500">/ Hour</span></p>
-                        <button
+                        <button id="btn-cek-ketersediaan"
                             class="w-full bg-blue-700 text-white font-bold py-3 rounded-lg hover:bg-blue-400 transition shadow-md">
                             Cek Ketersediaan
                         </button>
-                    </div>  
+                    </div>
 
                 </div>
             </div>
@@ -121,5 +122,33 @@
         </div>
     </div>
 
-    
+
 @endsection
+
+@push('scripts')
+<script>
+    // Pastikan skrip berjalan setelah semua elemen halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 1. Ambil elemen tombol berdasarkan id-nya
+        const scrollButton = document.getElementById('btn-cek-ketersediaan');
+        
+        // 2. Ambil elemen bagian tujuan berdasarkan id-nya
+        const targetSection = document.getElementById('jadwal-section');
+
+        // 3. Pastikan kedua elemen ada untuk menghindari error
+        if (scrollButton && targetSection) {
+            
+            // 4. Tambahkan event listener 'click' pada tombol
+            scrollButton.addEventListener('click', function() {
+                
+                // 5. Perintahkan browser untuk scroll ke bagian tujuan dengan efek HALUS
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start' 
+                });
+            });
+        }
+    });
+</script>
+@endpush

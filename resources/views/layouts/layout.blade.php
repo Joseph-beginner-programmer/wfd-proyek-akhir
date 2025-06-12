@@ -49,6 +49,7 @@
 
 
 </body>
+@stack('scripts')
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('mobileSidebar');
