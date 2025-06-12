@@ -39,8 +39,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
     Route::get('/admin-dashboard', function () {
         return view('admin.dashboard');
-    });
-    
+    });   
+});
+
+Route::get('marcel',function(){
+    return view('dashboard');
 });
 
 require __DIR__.'/auth.php';

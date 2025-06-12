@@ -17,6 +17,7 @@ class VenueSeeder extends Seeder
             ["type_id" => "1",
              "name" => "Lapangan Tennis",
              "address" => "Jalan Kemang no 124",
+             "description" =>"rehehergergreggreger",
              "price_per_hour" => "32000",
              "capacity" => "20",
              "provinsi" => "Jawa Barat",
@@ -24,7 +25,7 @@ class VenueSeeder extends Seeder
              "image_path" => "marcel123"],
             
         ];
-
+ 
         foreach ($types as $type) {
             Venue::create($type);
         }
