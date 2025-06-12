@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\JadwalVenue;
 use App\Models\Venue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -10,10 +13,7 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +37,15 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $venue = Venue::with('tipeVenue')->findOrFail($id);
-        return view('pages.detail', ['venue' => $venue]);
+        $dates = collect();
+        for ($i = 0; $i < 7; $i++) {
+            $dates->push(Carbon::now()->addDays($i));
+        }
+        return view('pages.detail', [
+            'venue' => $venue,
+            'dates' => $dates,
+            'selectedDate' => Carbon::now()->format('Y-m-d'),
+        ]);
     }
 
     /**
