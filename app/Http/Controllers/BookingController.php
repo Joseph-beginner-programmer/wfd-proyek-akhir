@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Venue;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -11,7 +12,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +36,8 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $venue = Venue::with('tipeVenue')->findOrFail($id);
+        return view('pages.detail', ['venue' => $venue]);
     }
 
     /**

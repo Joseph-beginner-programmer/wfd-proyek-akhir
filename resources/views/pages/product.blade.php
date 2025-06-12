@@ -38,6 +38,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($venues as $venue)
+                <a href="{{ route('detail', ['id' => $venue->venue_id]) }}">
                     <div
                         class="bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
                         <img src="{{ asset('storage/' . $venue->image_path) }}"
@@ -57,9 +58,11 @@
                                 <span class="ml-2 font-semibold text-sm"><strong>4.2</strong> •
                                     {{ $venue->provinsi }}</span>
                             </div>
-                            <p class="mt-4 text-lg font-bold text-gray-900">Price {{ $venue->price_per_hour }} / Hour</p>
+                            <p class=" mt-4 text-lg font-bold text-gray-900">Price {{ $venue->price_per_hour }} / Hour</p>
                         </div>
                     </div>
+                </a>
+                    
                 @endforeach
 
             </div>

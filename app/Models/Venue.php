@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Venue extends Model
 {
+    protected $primaryKey = "venue_id";
     protected $fillable = [
         'venue_id',
         'type_venue',
