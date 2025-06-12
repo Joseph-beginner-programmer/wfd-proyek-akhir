@@ -18,10 +18,11 @@ class VenueSeeder extends Seeder
              "name" => "Lapangan Tennis",
              "address" => "Jalan Kemang no 124",
              "price_per_hour" => "32000",
+             "description" => "ini tempat yang keren",
              "capacity" => "20",
              "provinsi" => "Jawa Barat",
              "phone_contact" => "00000000000",
-             "image_path" => "marcel123"],
+             "image_path" => "venues/lapangan-sepak-bola.jpg"],
             
         ];
 

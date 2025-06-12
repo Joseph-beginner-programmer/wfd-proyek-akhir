@@ -27,5 +27,6 @@
     @include('pages.venue-landing')
 </div>
 
+
 @include('pages.why-us')
 @endsection
