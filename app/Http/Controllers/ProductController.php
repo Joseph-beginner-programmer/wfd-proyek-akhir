@@ -17,11 +17,7 @@ class ProductController extends Controller
         $tipe_venue = tipe_venue::all();
         return view('pages.product', [
             'venues' => $venues,
-<<<<<<< HEAD
-            'tipe_venue' =>$tipe_venue
-=======
             'tipe_venue' => $tipe_venue
->>>>>>> Marcel
         ]);
     }
 
@@ -40,22 +36,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-<<<<<<< HEAD
-            'type_id'       => 'required|exists:tipe_venue,type_id',
-            'name'          => 'required|string|max:255',
-            'address'       => 'required|string',
-            'description'   => 'required|string',
-            'price_per_hour' => 'required|integer',
-            'capacity'      => 'required|integer',
-            'provinsi'      => 'required|string|max:255',
-            'phone_contact' => 'required|string|max:20',
-            'image_path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        if ($validatedData) {
-            Venue::create($validatedData);
-            return redirect()->route('venues');
-        }
-=======
             'type_id'        => 'required|exists:tipe_venue,type_id',
             'name'           => 'required|string|max:255',
             'address'        => 'required|string',
@@ -79,7 +59,6 @@ class ProductController extends Controller
         
 
         return redirect()->route('venues')->with('success', 'Venue created successfully!');
->>>>>>> Marcel
     }
 
     /**
