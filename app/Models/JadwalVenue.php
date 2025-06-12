@@ -11,4 +11,14 @@ class JadwalVenue extends Model
     return $this->hasMany(BookingHour::class, 'booking_hour_id');
 }
 
+
+    protected $fillable = [
+        'start_time',
+        'end_time',
+        'is_active'
+    ];
+    public function bookings()
+    {
+        return $this->belongsToMany(JadwalVenue::class, 'booking_hour', 'booking_id', 'booking_hour_id')->withTimestamps();
+    }
 }
