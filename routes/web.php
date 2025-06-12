@@ -22,7 +22,7 @@ Route::post('/create/post', [ProductController::class, 'store'])->name('venues.s
 
 // Route::resource('products', ProductController::class);
 
-
+ 
 #Venue Listing
 // Route::get('venueList', [VenueController::class, 'index'])->name('venues');
 
