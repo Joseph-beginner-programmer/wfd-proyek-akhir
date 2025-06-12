@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+
+    protected $primaryKey = 'booking_id';
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -18,7 +21,18 @@ class Booking extends Model
 
     public function bookingHours()
     {
-        return $this->belongsToMany(JadwalVenue::class, 'booking_hour', 'booking_id', 'booking_hour_id')->withTimestamps();
+        return $this->hasMany(BookingHour::class, 'booking_id');
+    }
 
+    public function jadwalVenues()
+    {
+        return $this->hasManyThrough(
+            JadwalVenue::class,
+            BookingHour::class,
+            'booking_id',        // Foreign key on BookingHour
+            'jadwal_id',         // Foreign key on JadwalVenue
+            'id',                // Local key on Booking
+            'booking_hour_id'    // Local key on BookingHour
+        );
     }
 }
