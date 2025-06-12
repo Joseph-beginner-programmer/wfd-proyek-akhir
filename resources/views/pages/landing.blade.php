@@ -7,8 +7,8 @@
             <h1 class="text-5xl md:text-7xl monteserrat-title text-center md:text-left"><span class="text-blue-800">Make</span> Reservation <span class="text-blue-800">Create</span> Lasting Memory</h1>
             <p class="text-2xl md:text-3xl  monteserrat-body text-center mt-3 md:mt-5 md:text-justify">Platform all-in-one untuk mencari venue terbaik untuk setiap jenis acara yang dapat anda bayangkan. Mulailah perjalanan seru dengan menggunakan reserveIn</p>
         </div>
-        <div class="h-30 w-[60rem] ml-[14rem] z-20 hidden md:flex">
-            <img src="{{ asset('images/person-hero.png') }}" class="h-[26rem] w-[20rem] mb-10">
+        <div class="h-30 w-[60rem] ml-[22rem] mt-4 z-20 hidden md:flex">
+            <img src="{{ asset('images/person-hero.png') }}" class="h-[26rem] w-[25rem] mb-10">
         </div>
         <img src="{{ asset('images/hero-background.png') }}" class=" absolute right-0 hidden lg:flex h-[29rem] w-[45rem]">
     </div>
