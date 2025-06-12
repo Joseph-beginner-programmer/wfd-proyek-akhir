@@ -46,4 +46,8 @@ Route::get('marcel',function(){
     return view('dashboard');
 })->name('dashboard1');
 
+Route::get('detail',function(){
+    return view('pages.detail');
+})->name('detail');
+
 require __DIR__.'/auth.php';
