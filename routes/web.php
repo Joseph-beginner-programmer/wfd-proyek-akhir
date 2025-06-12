@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\VenueController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VenueController;
-use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/landing');
 
@@ -46,8 +47,7 @@ Route::get('marcel',function(){
     return view('dashboard');
 })->name('dashboard1');
 
-Route::get('detail',function(){
-    return view('pages.detail');
-})->name('detail');
+
+Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
 
 require __DIR__.'/auth.php';

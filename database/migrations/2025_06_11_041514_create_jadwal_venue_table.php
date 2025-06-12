@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jadwal_venue', function (Blueprint $table) {
-            $table->id('jadwal_id'); // Sesuai ERD
-            $table->foreignId('venue_id')->constrained('venues', 'venue_id')->onDelete('cascade');
+            $table->id("jadwal_id");
             $table->time('start_time');
             $table->time('end_time');
-            $table->boolean('is_available')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

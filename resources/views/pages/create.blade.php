@@ -26,6 +26,10 @@
                 </div>
                 @endif --}}
 
+                <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
+
+                    @csrf
+                    <div class="space-y-6">
 
                         <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
