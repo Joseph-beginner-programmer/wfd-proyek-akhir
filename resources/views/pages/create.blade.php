@@ -9,7 +9,7 @@
                     <div class="p-8 sm:p-12">
                         <div class="text-center">
                             <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Daftarkan Venue Baru</h1>
-                            <p class="text-gray-500 mt-2">Isi detail di bawah untuk menampilkan venue Anda di platform kami.
+                            <p class="text-gray-500 mt-2 mb-2">Isi detail di bawah untuk menampilkan venue Anda di platform kami.
                             </p>
                         </div>
 
