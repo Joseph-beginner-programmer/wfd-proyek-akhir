@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class tipe_venue extends Model
 {
+    protected $primaryKey = 'type_id';
     protected $table = 'tipe_venue';
     protected $fillable = [
         'type_id',
         'type_name'
     ];
+    
 }

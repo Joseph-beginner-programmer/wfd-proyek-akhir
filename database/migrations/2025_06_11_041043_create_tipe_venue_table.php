@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tipe_venue', function (Blueprint $table) {
             $table->id('type_id'); // Sesuai ERD
-            $table->string('type_name');
+            $table->string('type_name')->unique();
             $table->timestamps();
         });
     }

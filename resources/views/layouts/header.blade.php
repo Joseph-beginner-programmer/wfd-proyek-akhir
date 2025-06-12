@@ -30,8 +30,8 @@
     </button>
 
     <ul>
-        <li class="mb-2"><a href="{{ route('venues') }}" class="roboto hover:underline">Dashboard</a></li>
-        <li class="mb-2"><a href="#" class="roboto hover:underline">Reserve a Venue</a></li>
+        <li class="mb-2"><a href="#" class="roboto hover:underline">Dashboard</a></li>
+        <li class="mb-2"><a href="{{ route('venues') }}" class="roboto hover:underline">Reserve a Venue</a></li>
         <li class="mb-2"><a href="#" class="roboto hover:underline">Partner with us</a></li>
         <li class="mb-2"><a href="#" class="roboto hover:underline">Blog</a></li>
         @guest

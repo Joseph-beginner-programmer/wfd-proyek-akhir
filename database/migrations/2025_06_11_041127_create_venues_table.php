@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->string('provinsi');
             $table->integer('phone_contact'); 
-            $table->string("Image_path")->nullable();
+            $table->string("image_path")->nullable();
             $table->timestamps();
         });
     }

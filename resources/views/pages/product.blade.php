@@ -43,9 +43,9 @@
                             alt="Lapangan Futsal">
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-900">{{ $venue->name }}</h3>
-                            @foreach ($tipe_venue as $type)
-                                <p class="text-sm text-gray-600 mt-1">{{ $type->type_name }}</p>
-                            @endforeach
+                            
+                                <p class="text-sm text-gray-600 mt-1">{{ $venue->tipeVenue->type_name }}</p>
+                            
                             <div class="flex items-center mt-3 text-gray-700">
                                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path
