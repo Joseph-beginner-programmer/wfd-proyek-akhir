@@ -4,18 +4,34 @@
 
     <body class="bg-white font-poppins">
 
-        <div
-            class="mt-5 shadow-[0_0_20px_rgba(0,0,0,0.15)] rounded-xl w-[90%] mx-auto px-2 py-3 flex flex-col items-center justify-center min-h-[10rem]">
-            <h1 class="text-blue-800 monteserrat-title text-2xl mb-3">
-                Reservasi Venue Online Terbaik
-            </h1>
-<<<<<<< HEAD
-            <a href="/create"
-                class="bg-blue-800 px-4 py-2 monteserrat-body rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out">
-=======
-            <a href="/create" class="bg-blue-800 px-4 py-2 monteserrat-body rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out">
->>>>>>> Joseph
-                Daftarkan Venue -></a>
+    <div
+        class="mt-5 shadow-[0_0_20px_rgba(0,0,0,0.15)] rounded-xl w-[90%] mx-auto px-2 py-3 flex flex-col items-center justify-center min-h-[10rem]">
+        <h1 class="text-blue-800 monteserrat-title text-2xl mb-3">
+            Reservasi Venue Online Terbaik
+        </h1>
+        <a href="/create" class="bg-blue-800 px-4 py-2 monteserrat-body rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out">
+            Daftarkan Venue -></a>
+    </div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mt-2 mb-6 flex flex-col md:flex-row items-center gap-5">
+            <input type="text" placeholder="Nama Venue"
+                class="w-full md:w-1/4 p-3 border-2 border-black rounded-lg font-semibold placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <input type="dropdown" placeholder="Location"
+                class="w-full md:w-1/4 p-3 border-2 border-black rounded-lg font-semibold placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <div class="col-md-3 border-2 rounded-lg p-3  ">
+                <select class="form-select search-input" aria-label="Pilih Tipe Venue">
+                    <option selected disabled>Tipe Venue</option>
+                    <option value="olahraga">Olahraga</option>
+                    <option value="pernikahan">Pernikahan</option>
+                    <option value="kantor">Kantor</option>
+                    <option value="hiburan">Hiburan</option>
+                    <option value="studio">Studio Musik</option>
+                </select>
+            </div>
+            <a href=""
+                class="border-2  bg-blue-800 px-4 py-3 rounded-lg text-white hover:bg-blue-600 transition duration-100 ease-in-out ">Cari
+                Venue</a>
         </div>
 
         <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">

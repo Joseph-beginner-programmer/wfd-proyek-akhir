@@ -27,9 +27,13 @@
                 @endif --}}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
 =======
                 <form action="{{ route('venues.store') }}" method="POST">
+>>>>>>> Joseph
+=======
+                <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
 >>>>>>> Joseph
                     @csrf
                     <div class="space-y-6">
@@ -135,11 +139,8 @@
                             </div>
 
                             <!-- File Input -->
-<<<<<<< HEAD
+
                             <input type="file" name="image_path" required
-=======
-                            <input type="file" name="venue_image" required
->>>>>>> Joseph
                                 class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-10 text-sm file:mr-4 file:py-2 file:px-4
                file:rounded-md file:border-0 file:text-sm file:font-semibold
                file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
