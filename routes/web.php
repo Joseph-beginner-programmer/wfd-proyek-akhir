@@ -44,6 +44,6 @@ Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])
 
 Route::get('marcel',function(){
     return view('dashboard');
-});
+})->name('dashboard1');
 
 require __DIR__.'/auth.php';
