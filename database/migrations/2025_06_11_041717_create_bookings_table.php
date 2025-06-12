@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id('booking_id'); // Sesuai ERD
+            $table->id('booking_id'); 
             $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
             $table->foreignId('venue_id')->constrained('venues', 'venue_id')->onDelete('cascade');
             $table->date('booking_date');
-            $table->enum('booking_status', ['pending', 'confirmed', 'completed', 'cancelled']);
+            $table->enum('booking_status', ['pending', 'confirmed', 'completed', 'cancelled'])->default("pending");
             $table->timestamps();
         });
     }

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\tipe_venue;
 use Illuminate\Database\Seeder;
-use Mockery\Matcher\Type;
 
 class TypeSeeder extends Seeder
 {
