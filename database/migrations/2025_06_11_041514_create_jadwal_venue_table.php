@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwal_venue', function (Blueprint $table) {
+        Schema::create('jadwal_venues', function (Blueprint $table) {
             $table->id("jadwal_id");
             $table->time('start_time');
             $table->time('end_time');

@@ -16,7 +16,7 @@ class JadwalVenueSeeder extends Seeder
         while ($start->lt($end)) {
             $next = $start->copy()->addHour();
 
-            DB::table('jadwal_venue')->insert([
+            DB::table('jadwal_venues')->insert([
                 'start_time' => $start->format('H:i:s'),
                 'end_time' => $next->format('H:i:s'),
                 'created_at' => now(),
