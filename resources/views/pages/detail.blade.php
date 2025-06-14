@@ -50,6 +50,9 @@
                     <form method="POST" action="/bookings">
                         @csrf
 
+                        <input type="hidden" name="venue_id" value="{{ $venue->venue_id }}">
+
+
                         <div id="date-selector" class="flex gap-4 overflow-x-auto">
                             @foreach ($dates as $date)
                                 <div class="cursor-pointer px-4 py-2 rounded-lg text-center border transition ease-in-out duration-250

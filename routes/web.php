@@ -50,4 +50,6 @@ Route::get('marcel',function(){
 
 Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
 
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
 require __DIR__.'/auth.php';

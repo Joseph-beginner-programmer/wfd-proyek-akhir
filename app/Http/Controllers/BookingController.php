@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\BookingHour;
 use App\Models\JadwalVenue;
 use App\Models\Venue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -28,7 +30,39 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate request data
+        $validated = $request->validate([
+            'venue_id' => 'required|exists:venues,venue_id',
+            'jadwal_ids' => 'required|array',
+            'jadwal_ids.*' => 'exists:jadwal_venues,jadwal_id', // Adjust table & column names as needed
+        ]);
+
+        try {
+            // Create the booking record
+            $booking = Booking::create([
+                'user_id' => Auth::id(),
+                'venue_id' => $validated['venue_id'],
+                'status' => 'pending', // You can change this to 'confirmed' if applicable
+                'booking_date' => $request->input('booking_date'), // if you pass this too
+            ]);
+
+            // Save selected booking hours
+            foreach ($validated['jadwal_ids'] as $jadwalId) {
+                BookingHour::create([
+                    'booking_id' => $booking->booking_id, // or $booking->booking_id based on your schema
+                    'booking_hour_id' => $jadwalId,
+                    'is_active' => true,
+                ]);
+            }
+
+            return redirect()->route('bookings.index')
+                ->with('success', 'Booking created successfully!');
+        } catch (\Exception $e) {
+            // Optional: handle unexpected issues
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while processing your booking.'])
+                ->withInput();
+        }
     }
 
     /**
