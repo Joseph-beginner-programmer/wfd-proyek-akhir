@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tipe_venue;
 use App\Models\Venue;
+use App\Models\tipe_venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -46,6 +47,7 @@ class ProductController extends Controller
             'phone_contact'  => 'required|string|max:20',
             'image_path'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+         $validatedData['user_id'] = Auth::id();
 
         // Handle file upload
         if ($request->hasFile('image_path')) {

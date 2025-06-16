@@ -9,6 +9,7 @@ class Venue extends Model
 {
     protected $primaryKey = "venue_id";
     protected $fillable = [
+        'user_id',
         'venue_id',
         'type_venue',
         'name',
@@ -21,6 +22,13 @@ class Venue extends Model
         'image_path',
         'type_id'
     ];
+
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function tipeVenue(): BelongsTo
     {
         return $this->belongsTo(tipe_venue::class, 'type_id', 'type_id');
