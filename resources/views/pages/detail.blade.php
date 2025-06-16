@@ -109,7 +109,7 @@
 
                         <input type="hidden" name="booking_date" id="booking_date" value="{{ $selectedDate }}" />
                         <!-- Other inputs like venue_id, jadwal_ids[] -->
-                        <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Book Now</button>
+                        <button id="book-button" type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Book Now</button>
                     </form>
                 </div>
             </div>
@@ -186,7 +186,8 @@
         const summaryList = document.getElementById('selected-slots-list');
         const totalDurationEl = document.getElementById('total-duration');
         const totalPriceEl = document.getElementById('total-price');
-        const bookButton = document.querySelector('button[type="submit"]'); // Tombol submit utama
+        const bookButton = document.getElementById('book-button');
+
 
         // Fungsi untuk mengupdate ringkasan booking
         function updateBookingSummary() {
