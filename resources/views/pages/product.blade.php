@@ -42,7 +42,7 @@
                     <div
                         class="bg-gray-50 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
                         <img src="{{ asset('storage/' . $venue->image_path) }}"
-                            alt="{{ asset('storage/' . $venue->image_path) }}" class="w-full h-auto">
+                            alt="{{ asset('storage/' . $venue->image_path) }}" class="w-full h-[13rem]">
 
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-gray-900">{{ $venue->name }}</h3>

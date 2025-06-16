@@ -35,20 +35,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
 });
 
 Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
-    Route::get('/admin-dashboard', function () {
-        return view('admin.dashboard');
-    });   
+    
 });
 
-Route::get('marcel',function(){
-    return view('dashboard');
-})->name('dashboard1');
+Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
+    ->middleware('auth')
+    ->name('cart.count');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [BookingController::class, 'index'])->name('dashboard1');
+});
 
 
-Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
+
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 

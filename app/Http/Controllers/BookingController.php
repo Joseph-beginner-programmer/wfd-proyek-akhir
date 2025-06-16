@@ -15,11 +15,16 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $bookings = Booking::with('venue')
+            ->where('user_id', Auth::id())
+            ->orderByDesc('booking_date')
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
+        return view('dashboard', compact('bookings'));
+    }
+
     public function create()
     {
         //
@@ -55,6 +60,7 @@ class BookingController extends Controller
                 ]);
             }
 
+
             return redirect()->route('venues')
                 ->with('success', 'Booking created successfully!');
         } catch (\Exception $e) {
@@ -64,6 +70,16 @@ class BookingController extends Controller
                 ->withInput();
         }
     }
+
+    public function getPendingBookingCount()
+    {
+        $count = Booking::where('user_id', Auth::id())
+            ->where('booking_status', 'pending')
+            ->count();
+
+        return response()->json(['count' => $count]);
+    }
+
 
     /**
      * Display the specified resource.
