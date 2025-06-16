@@ -4,14 +4,12 @@
     <div class="flex items-center gap-4">
 
         <nav class="hidden md:flex items-center space-x-6">
-            <a href="/"
-                class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Home</a>
+            <a href="/" class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Home</a>
             <a href="{{ route('dashboard1') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Dashboard</a>
             <a href="{{ route('venues') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Reserve a Venue</a>
-            <a href="#" class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Partner with
-                us</a>
+            <a href="{{ route("venues.myVenues") }}" class=" text-gray-200 roboto font-semibold hover:text-white transition-colors">My Venue</a>
         </nav>
 
         <div class="hidden md:block h-6 w-px bg-blue-700"></div>
