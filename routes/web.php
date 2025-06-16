@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -19,12 +20,11 @@ Route::get('product', [ProductController::class, 'index'])->name('venues');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
 Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
 
-
 // Route::get('product/create', ProductController::class, 'create')->name('venues.create');
 
 // Route::resource('products', ProductController::class);
 
-
+ 
 #Venue Listing
 // Route::get('venueList', [VenueController::class, 'index'])->name('venues');
 
@@ -36,23 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
     Route::get('/venues/{venue}/edit', [ProductController::class, 'edit'])->name('venues.edit');
     Route::put('/venues/{venue}', [ProductController::class, 'update'])->name('venues.update');
     Route::delete('/venues/{venue}', [ProductController::class, 'destroy'])->name('venues.destroy');
     Route::get('/venues/my_venue', [ProductController::class, 'myVenues'])->name('venues.myVenues');
+
 });
-
-Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('/admin-dashboard', function () {
-        return view('admin.dashboard');
-    });
-});
-
-Route::get('marcel', function () {
-    return view('dashboard');
-})->name('dashboard1');
-
-    Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
 
 Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
     
@@ -71,4 +61,4 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
