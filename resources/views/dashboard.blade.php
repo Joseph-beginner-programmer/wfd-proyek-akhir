@@ -68,10 +68,16 @@ $booking_data = $bookings;
                         <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        @if ($booking->status == 'completed')
-                        <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">Lihat Detail</a>
+                        @if ($status === 'pending')
+                        <a href="#"
+                            class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">
+                            Bayar Sekarang
+                        </a>
                         @else
-                        <a href="#" class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">Bayar Sekarang</a>
+                        <a href="#"
+                            class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">
+                            Lihat Detail
+                        </a>
                         @endif
                     </div>
                 </div>
@@ -81,10 +87,13 @@ $booking_data = $bookings;
             </div>
 
             <div id="pending" class="tab-content space-y-4 hidden">
-                @php $itemsFoundMenunggu = false; @endphp
+                @php $itemsFoundPending = false; @endphp
                 @foreach ($booking_data as $booking)
-                
-                @if ($booking->booking_status == 'pending')
+                @if ($booking->booking_status === 'pending')
+                @php
+                $status = strtolower($booking->booking_status);
+                @endphp
+
                 <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:shadow-md">
                     <div class="flex-grow">
                         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
@@ -100,18 +109,26 @@ $booking_data = $bookings;
                         <a href="#" class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">Checkout</a>
                     </div>
                 </div>
-                @php $itemsFoundMenunggu = true; @endphp
+
+                @php $itemsFoundPending = true; @endphp
                 @endif
                 @endforeach
-                @if(!$itemsFoundMenunggu)
+
+                @unless($itemsFoundPending)
                 <p class="text-center text-gray-500 py-10">No Pending Booking</p>
-                @endif
+                @endunless
             </div>
 
             <div id="confirmed" class="tab-content space-y-4 hidden">
-                @php $itemsFoundSelesai = false; @endphp
+                @php $itemsFoundConfirmed = false; @endphp
+
                 @foreach ($booking_data as $booking)
                 @if ($booking->booking_status == 'confirmed')
+                @php
+                $status = strtolower($booking->booking_status);
+                $itemsFoundConfirmed = true;
+                @endphp
+
                 <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:shadow-md">
                     <div class="flex-grow">
                         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
@@ -120,24 +137,35 @@ $booking_data = $bookings;
                                 {{ $badgeText[$status] ?? ucfirst($status) }}
                             </span>
                         </div>
-                        <p class="text-sm text-gray-500 flex items-center"><i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}</p>
-                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
+                        <p class="text-sm text-gray-500 flex items-center">
+                            <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
+                        </p>
+                        <p class="text-lg font-semibold text-gray-800 mt-2">
+                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                        </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
-                @php $itemsFoundSelesai = true; @endphp
                 @endif
                 @endforeach
-                @if(!$itemsFoundSelesai)
+
+                @unless($itemsFoundConfirmed)
                 <p class="text-center text-gray-500 py-10">No Confirmed Booking</p>
-                @endif
+                @endunless
             </div>
+
             <div id="completed" class="tab-content space-y-4 hidden">
-                @php $itemsFoundSelesai = false; @endphp
+                @php $itemsFoundCompleted = false; @endphp
+
                 @foreach ($booking_data as $booking)
                 @if ($booking->booking_status == 'completed')
+                @php
+                $status = strtolower($booking->booking_status);
+                $itemsFoundCompleted = true;
+                @endphp
+
                 <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:shadow-md">
                     <div class="flex-grow">
                         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
@@ -146,24 +174,35 @@ $booking_data = $bookings;
                                 {{ $badgeText[$status] ?? ucfirst($status) }}
                             </span>
                         </div>
-                        <p class="text-sm text-gray-500 flex items-center"><i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}</p>
-                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
+                        <p class="text-sm text-gray-500 flex items-center">
+                            <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
+                        </p>
+                        <p class="text-lg font-semibold text-gray-800 mt-2">
+                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                        </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
-                @php $itemsFoundSelesai = true; @endphp
                 @endif
                 @endforeach
-                @if(!$itemsFoundSelesai)
+
+                @unless($itemsFoundCompleted)
                 <p class="text-center text-gray-500 py-10">No Completed Booking</p>
-                @endif
+                @endunless
             </div>
+
             <div id="cancelled" class="tab-content space-y-4 hidden">
-                @php $itemsFoundSelesai = false; @endphp
+                @php $itemsFoundCancelled = false; @endphp
+
                 @foreach ($booking_data as $booking)
                 @if ($booking->booking_status == 'cancelled')
+                @php
+                $status = strtolower($booking->booking_status);
+                $itemsFoundCancelled = true;
+                @endphp
+
                 <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:shadow-md">
                     <div class="flex-grow">
                         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
@@ -172,19 +211,23 @@ $booking_data = $bookings;
                                 {{ $badgeText[$status] ?? ucfirst($status) }}
                             </span>
                         </div>
-                        <p class="text-sm text-gray-500 flex items-center"><i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}</p>
-                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
+                        <p class="text-sm text-gray-500 flex items-center">
+                            <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
+                        </p>
+                        <p class="text-lg font-semibold text-gray-800 mt-2">
+                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                        </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
-                @php $itemsFoundSelesai = true; @endphp
                 @endif
                 @endforeach
-                @if(!$itemsFoundSelesai)
+
+                @unless($itemsFoundCancelled)
                 <p class="text-center text-gray-500 py-10">No Cancelled Booking</p>
-                @endif
+                @endunless
             </div>
         </div>
     </div>
