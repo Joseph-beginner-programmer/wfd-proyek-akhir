@@ -6,12 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+     public const HOME = '/landing'; 
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        //
+       
     }
 
     /**

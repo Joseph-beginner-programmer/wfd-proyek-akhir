@@ -23,6 +23,6 @@ class JadwalVenue extends Model
 
     public function venue()
     {
-        return $this->belongsTo(Venue::class);
+        return $this->belongsTo(Venue::class, 'venue_id', 'venue_id');
     }
 }

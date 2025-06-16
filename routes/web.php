@@ -16,21 +16,8 @@ Route::get('/landing', function () {
 
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');
-// Route::get('productcreate', [ProductController::class, 'show'])->name('venues.create');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
 Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
-
-// Route::get('product/create', ProductController::class, 'create')->name('venues.create');
-
-// Route::resource('products', ProductController::class);
-
- 
-#Venue Listing
-// Route::get('venueList', [VenueController::class, 'index'])->name('venues');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,20 +31,16 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
+// Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
     
-});
+// });
 
 Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
-    ->middleware('auth')
     ->name('cart.count');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [BookingController::class, 'index'])->name('dashboard1');
 });
-
-
-
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 

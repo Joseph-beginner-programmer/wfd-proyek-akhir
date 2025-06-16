@@ -41,8 +41,8 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <i class="fas fa-building text-gray-400"></i>
                                 </div>
-                                <input type="text" name="name" placeholder="Nama Venue" value="{{ old('name') }}"
-                                    required
+                                <input type="text" name="name" placeholder="Nama Venue"
+                                    value="{{ old('name', $venue->name ?? '') }}" required
                                     class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             </div>
 
@@ -55,7 +55,7 @@
                                     <option selected disabled value="">Pilih Tipe Venue...</option>
                                     @foreach ($tipe_venue as $tipe)
                                         <option value="{{ $tipe->type_id }}"
-                                            {{ old('type_id') == $tipe->type_id ? 'selected' : '' }}>
+                                            {{ old('type_id', $venue->type_id ?? '') == $tipe->type_id ? 'selected' : '' }}>
                                             {{ $tipe->type_name }}
                                         </option>
                                     @endforeach
@@ -74,7 +74,7 @@
                                     <i class="fas fa-map-marker-alt text-gray-400"></i>
                                 </div>
                                 <input type="text" name="address" placeholder="Alamat Lengkap"
-                                    value="{{ old('address') }}" required
+                                    value="{{ old('address', $venue->address ?? '') }}" required
                                     class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             </div>
 
@@ -82,8 +82,8 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <i class="fas fa-globe-asia text-gray-400"></i>
                                 </div>
-                                <input type="text" name="provinsi" placeholder="Provinsi" value="{{ old('provinsi') }}"
-                                    required
+                                <input type="text" name="provinsi" placeholder="Provinsi"
+                                    value="{{ old('provinsi', $venue->provinsi ?? '') }}" required
                                     class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             </div>
 
@@ -91,8 +91,9 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 pt-3 flex items-start pointer-events-none">
                                     <i class="fas fa-align-left text-gray-400"></i>
                                 </div>
-                                <textarea name="description" placeholder="Deskripsi Singkat Venue" rows="4" required
-                                    class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">{{ old('description') }}</textarea>
+                                <textarea name="description" placeholder="Deskripsi Singkat Venue"
+                                    rows="4" " required
+                                                                                                                                                                                                    class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">{{ old('description', $venue->description ?? '') }}</textarea>
                             </div>
 
 
@@ -102,7 +103,7 @@
                                         <i class="fas fa-dollar-sign text-gray-400"></i>
                                     </div>
                                     <input type="number" name="price_per_hour" placeholder="Harga/Jam"
-                                        value="{{ old('price_per_hour') }}" required
+                                        value="{{ old('price_per_hour', $venue->price_per_hour ?? '') }}" required
                                         class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                                 </div>
                                 <div class="relative">
@@ -110,7 +111,7 @@
                                         <i class="fas fa-users text-gray-400"></i>
                                     </div>
                                     <input type="number" name="capacity" placeholder="Kapasitas"
-                                        value="{{ old('capacity') }}" required
+                                        value="{{ old('capacity', $venue->capacity ?? '') }}" required
                                         class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                                 </div>
                                 <div class="relative">
@@ -118,7 +119,7 @@
                                         <i class="fas fa-phone text-gray-400"></i>
                                     </div>
                                     <input type="text" name="phone_contact" placeholder="Kontak"
-                                        value="{{ old('phone_contact') }}" required
+                                        value="{{ old('phone_contact', $venue->phone_contact ?? '') }}" required
                                         class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                                 </div>
                             </div>
@@ -147,13 +148,25 @@
                                     Selesai)</label>
 
                                 <div id="jadwal-container" class="space-y-4">
-                                    <div class="flex gap-4">
-                                        <input type="time" name="jadwal_venues[0][start_time]" required
-                                            class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
-                                        <input type="time" name="jadwal_venues[0][end_time]" required
-                                            class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
-                                    </div>
+                                    @php $jadwal_venues = old('jadwal_venues', $venue->jadwal_venues ?? [['start_time' => '', 'end_time' => '']]); @endphp
+
+                                    @foreach ($jadwal_venues as $index => $jadwal)
+                                        <div class="flex gap-4 items-center jadwal-row">
+                                            <input type="time" name="jadwal_venues[{{ $index }}][start_time]"
+                                                value="{{ $jadwal['start_time'] ?? '' }}" required
+                                                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                                            <input type="time" name="jadwal_venues[{{ $index }}][end_time]"
+                                                value="{{ $jadwal['end_time'] ?? '' }}" required
+                                                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+
+                                            <button type="button"
+                                                class="delete-jadwal bg-red-500 hover:bg-red-600 text-white rounded-lg px-3 py-2">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    @endforeach
                                 </div>
+
 
                                 <button type="button" id="add-jadwal"
                                     class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors">
@@ -183,51 +196,36 @@
 
 @push('scripts')
     <script>
-        let jadwalIndex = 1;
+        let jadwalIndex =
+            {{ count(old('jadwal_venues', $venue->jadwal_venues ?? [['start_time' => '', 'end_time' => '']])) }};
 
+        // Add jadwal handler
         document.getElementById('add-jadwal').addEventListener('click', function() {
             const container = document.getElementById('jadwal-container');
 
-            const prevEndInput = container.querySelectorAll(`input[name^="jadwal_venues"]`)[(jadwalIndex - 1) * 2 +
-                1];
-            const prevEndTime = prevEndInput ? prevEndInput.value : null;
-
             const div = document.createElement('div');
-            div.classList.add('flex', 'gap-4');
+            div.classList.add('flex', 'gap-4', 'items-center', 'jadwal-row');
 
             div.innerHTML = `
-            <input type="time" name="jadwal_venues[${jadwalIndex}][start_time]" required
-                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
-            <input type="time" name="jadwal_venues[${jadwalIndex}][end_time]" required
-                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
-        `;
+                <input type="time" name="jadwal_venues[${jadwalIndex}][start_time]" required
+                    class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                <input type="time" name="jadwal_venues[${jadwalIndex}][end_time]" required
+                    class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                <button type="button" class="delete-jadwal bg-red-500 hover:bg-red-600 text-white rounded-lg px-3 py-2">
+                    Delete
+                </button>
+            `;
 
             container.appendChild(div);
-
-            const inputs = div.querySelectorAll('input');
-            const [startInput, endInput] = inputs;
-
-            // Autofill next start time if previous end time exists
-            if (prevEndTime) {
-                startInput.value = prevEndTime;
-            }
-
-            // Validate that end time is after start time
-            endInput.addEventListener('change', () => {
-                if (startInput.value && endInput.value <= startInput.value) {
-                    alert("Jam selesai harus setelah jam mulai.");
-                    endInput.value = "";
-                }
-            });
-
-            startInput.addEventListener('change', () => {
-                if (prevEndTime && startInput.value < prevEndTime) {
-                    alert("Jam mulai harus setelah jam selesai sebelumnya.");
-                    startInput.value = prevEndTime;
-                }
-            });
-
             jadwalIndex++;
+        });
+
+        // Delete handler (event delegation)
+        document.getElementById('jadwal-container').addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('delete-jadwal')) {
+                const row = e.target.closest('.jadwal-row');
+                if (row) row.remove();
+            }
         });
     </script>
 @endpush

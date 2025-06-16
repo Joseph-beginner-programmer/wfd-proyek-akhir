@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Venue;
 use App\Models\tipe_venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log as FacadesLog;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use function Illuminate\Log\log;
 
 class ProductController extends Controller
 {
@@ -87,42 +91,57 @@ class ProductController extends Controller
     {
         $venue = Venue::with('jadwal_venues')->findOrFail($id);
         $tipe_venue = tipe_venue::all();;
-        return view('pages.create', [ // pakai view yang sama
+        return view('pages.create', [
             'venue' => $venue,
             'tipe_venue' => $tipe_venue,
             'editMode' => true
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Venue $venue)
-    { {
-            // Validasi data yang masuk (sama seperti di method store)
-            $validatedData = $request->validate([
-                'type_id'        => 'required|exists:tipe_venue,type_id',
-                'name'           => 'required|string|max:255',
-                'address'        => 'required|string',
-                'description'    => 'required|string',
-                'price_per_hour' => 'required|integer',
-                'capacity'       => 'required|integer',
-                'provinsi'       => 'required|string|max:255',
-                'phone_contact'  => 'required|string|max:20',
-                'image_path'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'jadwal_venues' => 'required|array',
-                'jadwal_venues.*.start_time' => 'required|date_format:H:i',
-                'jadwal_venues.*.end_time' => 'required|date_format:H:i|after:jadwal_venues.*.start_time',
-            ]);
-            if ($request->hasFile('image_path')) {
-                $path = $request->file('image_path')->store('venues', 'public');
-                $validatedData['image_path'] = $path;
-            }
-            $venue->update($validatedData);
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'type_id' => 'required|exists:tipe_venue,type_id',
+            'address' => 'required|string',
+            'provinsi' => 'required|string',
+            'description' => 'required|string',
+            'price_per_hour' => 'required|numeric',
+            'capacity' => 'required|integer',
+            'phone_contact' => 'required|string',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'jadwal_venues' => 'required|array',
+            'jadwal_venues.*.start_time' => 'required|date_format:H:i:s',
+            'jadwal_venues.*.end_time' => 'required|date_format:H:i:s',
+        ]);
 
-            return redirect()->route('venues.myVenues')->with('success', 'Venue berhasil diperbarui!');
+        $venue = Venue::findOrFail($id);
+        $venue->update($validated);
+
+        if ($request->hasFile('image_path')) {
+            $imagePath = $request->file('image_path')->store('venue_images', 'public');
+            $venue->image_path = $imagePath;
+            $venue->save();
         }
+
+        $venue->jadwal_venues()->delete();
+
+        foreach ($request->jadwal_venues as $jadwal) {
+            $venue->jadwal_venues()->create([
+                'start_time' => $jadwal['start_time'],
+                'end_time' => $jadwal['end_time'],
+                'is_active' => true, 
+            ]);
+        }
+
+        return redirect()->route('venues.myVenues')->with('success', 'Venue berhasil diperbarui!');
     }
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -136,7 +155,7 @@ class ProductController extends Controller
 
         $venue->delete();
 
-        return redirect()->route('my_venues.index')->with('success', 'Venue berhasil dihapus.');
+        return redirect()->route('venues.myVenues')->with('success', 'Venue berhasil dihapus.');
     }
 
     public function myVenues()

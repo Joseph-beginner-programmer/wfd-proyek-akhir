@@ -10,7 +10,6 @@ class Venue extends Model
     protected $primaryKey = "venue_id";
     protected $fillable = [
         'user_id',
-        'venue_id',
         'type_venue',
         'name',
         'address',
@@ -36,6 +35,6 @@ class Venue extends Model
 
     public function jadwal_venues()
     {
-        return $this->hasMany(JadwalVenue::class, 'venue_id');
+        return $this->hasMany(JadwalVenue::class, 'venue_id', 'venue_id');
     }
 }
