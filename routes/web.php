@@ -52,8 +52,22 @@ Route::get('marcel', function () {
     return view('dashboard');
 })->name('dashboard1');
 
+    Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
 
-Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
+Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
+    
+});
+
+Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
+    ->middleware('auth')
+    ->name('cart.count');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [BookingController::class, 'index'])->name('dashboard1');
+});
+
+
+
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 

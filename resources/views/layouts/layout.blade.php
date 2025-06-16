@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add this in your <head> or layout file if not already included -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
     <style>
         .roboto {
             font-family: 'Roboto', sans-serif;
@@ -18,19 +21,19 @@
             display: none !important;
         }
 
-        .monteserrat-body{
+        .monteserrat-body {
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
             /* Use the weight you imported */
         }
 
-        .monteserrat-title{
+        .monteserrat-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             /* Use the weight you imported */
         }
 
-        .monteserrat-heading{
+        .monteserrat-heading {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             /* Use the weight you imported */
@@ -47,7 +50,7 @@
         @yield('content')
     </div>
 
-@stack('scripts')
+    @stack('scripts')
 </body>
 <script>
     function toggleSidebar() {
