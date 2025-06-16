@@ -47,9 +47,8 @@
         @yield('content')
     </div>
 
-
+@stack('scripts')
 </body>
-@stack('script')
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('mobileSidebar');

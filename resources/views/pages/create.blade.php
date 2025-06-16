@@ -1,19 +1,19 @@
 @extends('layouts.layout')
 @section('content')
 
-    <body class="bg-gradient-to-br from-cyan-50 to-blue-200 font-poppins">
+<body class="bg-gradient-to-br from-cyan-50 to-blue-200 font-poppins">
 
-        <div class="min-h-screen flex items-center justify-center p-4">
-            <div class="w-full max-w-3xl">
-                <div class="bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl">
-                    <div class="p-8 sm:p-12">
-                        <div class="text-center">
-                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Daftarkan Venue Baru</h1>
-                            <p class="text-gray-500 mt-2">Isi detail di bawah untuk menampilkan venue Anda di platform kami.
-                            </p>
-                        </div>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-3xl">
+            <div class="bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl">
+                <div class="p-8 sm:p-12">
+                    <div class="text-center">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Daftarkan Venue Baru</h1>
+                        <p class="text-gray-500 mt-2">Isi detail di bawah untuk menampilkan venue Anda di platform kami.
+                        </p>
+                    </div>
 
-                        {{-- <div class="mt-8">
+                    {{-- <div class="mt-8">
                             @if ($errors->any())
                                 <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md"
                                     role="alert">
@@ -52,10 +52,10 @@
                                         class="w-full appearance-none bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                                         <option selected disabled value="">Pilih Tipe Venue...</option>
                                         @foreach ($tipe_venue as $tipe)
-                                            <option value="{{ $tipe->type_id }}"
-                                                {{ old('type_id') == $tipe->type_id ? 'selected' : '' }}>
-                                                {{ $tipe->type_name }}
-                                            </option>
+                                        <option value="{{ $tipe->type_id }}"
+                                            {{ old('type_id') == $tipe->type_id ? 'selected' : '' }}>
+                                            {{ $tipe->type_name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -92,6 +92,7 @@
                                     <textarea name="description" placeholder="Deskripsi Singkat Venue" rows="4" required
                                         class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 pl-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">{{ old('description') }}</textarea>
                                 </div>
+
 
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                     <div class="relative">
@@ -139,6 +140,24 @@
                file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
 
+                                <div class="pt-6">
+                                    <label class="block text-gray-700 font-semibold mb-2">Jadwal Venue (Jam Mulai - Jam Selesai)</label>
+
+                                    <div id="jadwal-container" class="space-y-4">
+                                        <div class="flex gap-4">
+                                            <input type="time" name="jadwal_venues[0][start_time]" required
+                                                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                                            <input type="time" name="jadwal_venues[0][end_time]" required
+                                                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                                        </div>
+                                    </div>
+
+                                    <button type="button" id="add-jadwal"
+                                        class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors">
+                                        + Tambah Jadwal
+                                    </button>
+                                </div>
+
 
                                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-4">
                                     <a href="/product"
@@ -151,10 +170,60 @@
                             </div>
                         </form>
                     </div>
-                </div>
             </div>
         </div>
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-    </body>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+</body>
 @endsection
+
+@push('scripts')
+<script>
+    let jadwalIndex = 1;
+
+    document.getElementById('add-jadwal').addEventListener('click', function() {
+        const container = document.getElementById('jadwal-container');
+
+        const prevEndInput = container.querySelectorAll(`input[name^="jadwal_venues"]`)[(jadwalIndex - 1) * 2 + 1];
+        const prevEndTime = prevEndInput ? prevEndInput.value : null;
+
+        const div = document.createElement('div');
+        div.classList.add('flex', 'gap-4');
+
+        div.innerHTML = `
+            <input type="time" name="jadwal_venues[${jadwalIndex}][start_time]" required
+                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+            <input type="time" name="jadwal_venues[${jadwalIndex}][end_time]" required
+                class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+        `;
+
+        container.appendChild(div);
+
+        const inputs = div.querySelectorAll('input');
+        const [startInput, endInput] = inputs;
+
+        // Autofill next start time if previous end time exists
+        if (prevEndTime) {
+            startInput.value = prevEndTime;
+        }
+
+        // Validate that end time is after start time
+        endInput.addEventListener('change', () => {
+            if (startInput.value && endInput.value <= startInput.value) {
+                alert("Jam selesai harus setelah jam mulai.");
+                endInput.value = "";
+            }
+        });
+
+        startInput.addEventListener('change', () => {
+            if (prevEndTime && startInput.value < prevEndTime) {
+                alert("Jam mulai harus setelah jam selesai sebelumnya.");
+                startInput.value = prevEndTime;
+            }
+        });
+
+        jadwalIndex++;
+    });
+</script>
+@endpush

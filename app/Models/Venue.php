@@ -23,7 +23,7 @@ class Venue extends Model
         'type_id'
     ];
 
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -32,5 +32,10 @@ class Venue extends Model
     public function tipeVenue(): BelongsTo
     {
         return $this->belongsTo(tipe_venue::class, 'type_id', 'type_id');
+    }
+
+    public function jadwal_venues()
+    {
+        return $this->hasMany(JadwalVenue::class, 'venue_id');
     }
 }

@@ -55,7 +55,7 @@ class BookingController extends Controller
                 ]);
             }
 
-            return redirect()->route('bookings.index')
+            return redirect()->route('venues')
                 ->with('success', 'Booking created successfully!');
         } catch (\Exception $e) {
             // Optional: handle unexpected issues
@@ -76,7 +76,7 @@ class BookingController extends Controller
             $dates->push(Carbon::now()->addDays($i));
         }
         // 2. Ambil SEMUA potensi jadwal dari tabel JadwalVenue.
-        $allJadwals = JadwalVenue::where('is_active', 1)->orderBy('start_time')->get();
+        $allJadwals = JadwalVenue::where('venue_id', $id)->where('is_active', 1)->orderBy('start_time')->get();
 
         // 3. Ambil ID jadwal yang SUDAH DIBOOKING pada tanggal target.
         // Ini adalah logika kuncinya.
@@ -94,8 +94,6 @@ class BookingController extends Controller
         //     // Contoh: $jadwal->price = 240000;
         //     return $jadwal;
         // });
-
-
         return view('pages.detail', [
             'venue' => $venue,
             'dates' => $dates,

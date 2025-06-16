@@ -46,8 +46,11 @@ class ProductController extends Controller
             'provinsi'       => 'required|string|max:255',
             'phone_contact'  => 'required|string|max:20',
             'image_path'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'jadwal_venues' => 'required|array',
+            'jadwal_venues.*.start_time' => 'required|date_format:H:i',
+            'jadwal_venues.*.end_time' => 'required|date_format:H:i|after:jadwal_venues.*.start_time',
         ]);
-         $validatedData['user_id'] = Auth::id();
+        $validatedData['user_id'] = Auth::id();
 
         // Handle file upload
         if ($request->hasFile('image_path')) {
@@ -58,7 +61,15 @@ class ProductController extends Controller
 
         $venue = new Venue($validatedData);
         $venue->save();
-        
+
+        foreach ($validatedData['jadwal_venues'] as $jadwal) {
+        $venue->jadwal_venues()->create([
+            'start_time' => $jadwal['start_time'],
+            'end_time' => $jadwal['end_time'],
+            'is_active' => true
+        ]);
+    }
+
 
         return redirect()->route('venues')->with('success', 'Venue created successfully!');
     }

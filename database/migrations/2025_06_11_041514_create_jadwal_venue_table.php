@@ -16,6 +16,8 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('venue_id');
+            $table->foreign('venue_id')->references('venue_id')->on('venues')->onDelete('cascade');
             $table->timestamps();
         });
     }
