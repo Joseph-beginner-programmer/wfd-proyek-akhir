@@ -7,6 +7,8 @@
             <a href="/" class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Home</a>
             <a href="{{ route('dashboard1') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Dashboard</a>
+            <a href="{{ route('abouts') }}"
+                class="text-gray-200 roboto font-semibold hover:text-white transition-colors">About Us</a>
             <a href="{{ route('venues') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Reserve a Venue</a>
             <a href="{{ route("venues.myVenues") }}" class=" text-gray-200 roboto font-semibold hover:text-white transition-colors">My Venue</a>
