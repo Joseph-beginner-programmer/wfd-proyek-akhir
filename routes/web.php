@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment', function () {
         return view('pages.payment');
     })->name('payment');
+    Route::get('/booking/summary/{id}', [BookingController::class, 'summary'])->name('booking.summary');
 });
 
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {

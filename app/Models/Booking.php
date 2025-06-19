@@ -23,14 +23,14 @@ class Booking extends Model
 
     public function venue()
     {
-        return $this->belongsTo(Venue::class);
+        return $this->belongsTo(Venue::class, 'venue_id', 'venue_id');
     }
 
     public function bookingHours()
     {
         return $this->hasMany(BookingHour::class, 'booking_id');
     }
-
+ 
     public function jadwalVenues()
     {
         return $this->hasManyThrough(
