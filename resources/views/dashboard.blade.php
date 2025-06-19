@@ -65,18 +65,18 @@ $booking_data = $bookings;
                             </span>
                         </div>
                         <p class="text-sm text-gray-500 flex items-center"><i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}</p>
-                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
+                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->price, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         @if ($status === 'pending')
                         <a href="#"
                             class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">
-                            Bayar Sekarang
+                            Checkout
                         </a>
                         @else
                         <a href="#"
                             class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">
-                            Lihat Detail
+                            See Details
                         </a>
                         @endif
                     </div>
@@ -103,7 +103,7 @@ $booking_data = $bookings;
                             </span>
                         </div>
                         <p class="text-sm text-gray-500 flex items-center"><i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}</p>
-                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->name, 0, ',', '.') }}</p>
+                        <p class="text-lg font-semibold text-gray-800 mt-2">Rp {{ number_format($booking->price, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         <a href="#" class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">Checkout</a>
@@ -141,7 +141,7 @@ $booking_data = $bookings;
                             <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
                         </p>
                         <p class="text-lg font-semibold text-gray-800 mt-2">
-                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                            Rp {{ number_format($booking->price, 0, ',', '.') }}
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
@@ -178,7 +178,7 @@ $booking_data = $bookings;
                             <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
                         </p>
                         <p class="text-lg font-semibold text-gray-800 mt-2">
-                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                            Rp {{ number_format($booking->price, 0, ',', '.') }}
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
@@ -215,7 +215,7 @@ $booking_data = $bookings;
                             <i class="far fa-calendar-alt w-4 mr-2"></i>{{ $booking->booking_date }}
                         </p>
                         <p class="text-lg font-semibold text-gray-800 mt-2">
-                            Rp {{ number_format($booking->name, 0, ',', '.') }}
+                            Rp {{ number_format($booking->price, 0, ',', '.') }}
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">

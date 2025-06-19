@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('venue_id')->constrained('venues', 'venue_id')->onDelete('cascade');
             $table->date('booking_date');
             $table->enum('booking_status', ['pending', 'confirmed', 'completed', 'cancelled'])->default("pending");
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }

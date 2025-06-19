@@ -35,8 +35,10 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        
         // Validate request data
         $validated = $request->validate([
+            'price' => 'required|numeric',
             'venue_id' => 'required|exists:venues,venue_id',
             'jadwal_ids' => 'required|array',
             'jadwal_ids.*' => 'exists:jadwal_venues,jadwal_id', // Adjust table & column names as needed
@@ -45,10 +47,12 @@ class BookingController extends Controller
         try {
             // Create the booking record
             $booking = Booking::create([
+            
                 'user_id' => Auth::id(),
                 'venue_id' => $validated['venue_id'],
                 'status' => 'pending', // You can change this to 'confirmed' if applicable
                 'booking_date' => $request->input('booking_date'), // if you pass this too
+                'price' => $validated['price'],
             ]);
 
             // Save selected booking hours

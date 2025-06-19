@@ -38,6 +38,11 @@
             font-weight: 700;
             /* Use the weight you imported */
         }
+
+        .text-shadow-glow {
+            text-shadow: 0 0 5px #fff, 0 0 10px #0ff, 0 0 20px #0ff;
+        }
+    
     </style>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>Document</title>
