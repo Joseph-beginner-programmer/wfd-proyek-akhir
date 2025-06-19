@@ -41,7 +41,7 @@ class BookingController extends Controller
             'price' => 'required|numeric',
             'venue_id' => 'required|exists:venues,venue_id',
             'jadwal_ids' => 'required|array',
-            'jadwal_ids.*' => 'exists:jadwal_venues,jadwal_id', // Adjust table & column names as needed
+            'jadwal_ids.*' => 'exists:jadwal_venues,jadwal_id',
         ]);
 
         try {
@@ -58,7 +58,7 @@ class BookingController extends Controller
             // Save selected booking hours
             foreach ($validated['jadwal_ids'] as $jadwalId) {
                 BookingHour::create([
-                    'booking_id' => $booking->booking_id, // or $booking->booking_id based on your schema
+                    'booking_id' => $booking->booking_id,
                     'booking_hour_id' => $jadwalId,
                     'is_active' => true,
                 ]);
@@ -68,7 +68,6 @@ class BookingController extends Controller
             return redirect()->route('venues')
                 ->with('success', 'Booking created successfully!');
         } catch (\Exception $e) {
-            // Optional: handle unexpected issues
             return redirect()->back()
                 ->withErrors(['error' => 'An error occurred while processing your booking.'])
                 ->withInput();

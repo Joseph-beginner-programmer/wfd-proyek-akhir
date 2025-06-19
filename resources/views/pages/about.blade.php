@@ -1,8 +1,5 @@
-{{-- Menggunakan layout utama aplikasi Anda, contoh: 'layouts.app' --}}
-{{-- Pastikan layout utama Anda memuat file CSS Tailwind --}}
 @extends('layouts.layout')
 
-{{-- Section ini akan mengisi bagian 'content' di layout utama --}}
 @section('content')
 
 {{-- Main Content Area --}}

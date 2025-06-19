@@ -16,6 +16,9 @@ Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
 
+Route::get('/payment', function () {
+    return view('pages.payment');
+})->name('payment');
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
@@ -33,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/venues/{venue}', [ProductController::class, 'update'])->name('venues.update');
     Route::delete('/venues/{venue}', [ProductController::class, 'destroy'])->name('venues.destroy');
     Route::get('/venues/my_venue', [ProductController::class, 'myVenues'])->name('venues.myVenues');
-
+    
 });
 
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
