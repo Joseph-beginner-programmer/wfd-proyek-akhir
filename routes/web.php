@@ -16,6 +16,9 @@ Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
 
+Route::get('/payment', function () {
+    return view('pages.payment');
+})->name('payment');
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
