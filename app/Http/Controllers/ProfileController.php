@@ -10,7 +10,22 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
-{
+{ 
+    public function business()
+    {
+        return view('pages.business'); // <-- Memberi tahu Laravel untuk membuka file view
+    }
+
+    public function team()
+    {
+        return view('pages.team'); // <-- Memberi tahu Laravel untuk membuka file view
+    }
+
+    public function about()
+    {
+        return view('pages.about'); // <-- Memberi tahu Laravel untuk membuka file view
+    }
+
     /**
      * Display the user's profile form.
      */

@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use Pest\Plugins\Profile;
 
 Route::redirect('/', '/landing');
 
@@ -18,6 +20,9 @@ Route::get('/landing', function () {
 Route::get('product', [ProductController::class, 'index'])->name('venues');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
 Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
+Route::get('/about', [ProfileController::class, 'about'])->name('abouts');
+Route::get('/team', [ProfileController::class, 'team']) ->name('teams'); 
+Route::get('/business', [ProfileController::class, 'business']) ->name('businesss');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
