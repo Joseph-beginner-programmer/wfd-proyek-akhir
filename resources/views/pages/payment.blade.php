@@ -125,7 +125,7 @@
                     </svg>
                 </a>
 
-                <a class="w-full bg-blue-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                <a href="{{ route('method', ['id' => $booking->booking_id]) }}" class="w-full bg-blue-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
                     Lanjutkan ke Pembayaran
                 </a>
             </div>

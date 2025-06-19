@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Pest\Plugins\Profile;
@@ -15,9 +16,7 @@ Route::redirect('/', '/landing');
 Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
-Route::get('/method', function () {
-    return view('pages.method');
-})->name('method');
+Route::get('/payment/method/{id}', [PaymentController::class, 'showMethod'])->name('method');
 
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');

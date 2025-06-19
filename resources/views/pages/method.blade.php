@@ -22,7 +22,7 @@
                                 <label class="text-sm font-medium text-gray-500">Nama Lengkap <span
                                         class="text-red-500">*</span></label>
                                 <div class="mt-1 p-3 bg-gray-100 rounded-lg text-gray-800 font-semibold">
-                                    Joseph Evan Tanujaya
+                                    {{$user->name}}
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -30,14 +30,14 @@
                                     <label class="text-sm font-medium text-gray-500">Nomor Ponsel <span
                                             class="text-red-500">*</span></label>
                                     <div class="mt-1 p-3 bg-gray-100 rounded-lg text-gray-800 font-semibold">
-                                        62811309198
+                                        {{$user->phone}}
                                     </div>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500">Email <span
                                             class="text-red-500">*</span></label>
                                     <div class="mt-1 p-3 bg-gray-100 rounded-lg text-gray-800 font-semibold">
-                                        c14230096@john.petra.ac.id
+                                        {{$user->email}}
                                     </div>
                                 </div>
                             </div>
@@ -112,24 +112,12 @@
                         <div class="space-y-3 text-gray-600 text-sm">
                             <div class="flex justify-between">
                                 <span>Biaya Sewa</span>
-                                <span class="font-medium text-gray-800">Rp200.000</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Biaya Produk Tambahan</span>
-                                <span class="font-medium text-gray-800">Rp0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Total Biaya (Lunas)</span>
-                                <span class="font-medium text-gray-800">Rp200.000</span>
+                                <span class="font-medium text-gray-800">{{number_format($price, 0, ',', '.')}}</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>Convenience Fee</span>
                                 <span class="font-medium text-gray-800">Rp0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Biaya Transaksi</span>
-                                <span class="font-medium text-gray-800">Rp0</span>
-                            </div>
+                            </div>                            
                             <hr class="my-3 border-t-2">
                             <div class="flex justify-between font-bold text-gray-800 text-base">
                                 <span>Total Bayar</span>
