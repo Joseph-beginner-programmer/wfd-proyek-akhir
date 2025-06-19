@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/venues/{venue}', [ProductController::class, 'update'])->name('venues.update');
     Route::delete('/venues/{venue}', [ProductController::class, 'destroy'])->name('venues.destroy');
     Route::get('/venues/my_venue', [ProductController::class, 'myVenues'])->name('venues.myVenues');
-
+    
 });
 
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
