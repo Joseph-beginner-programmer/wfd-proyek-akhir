@@ -15,7 +15,9 @@ Route::redirect('/', '/landing');
 Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
-
+Route::get('/method', function () {
+    return view('pages.method');
+})->name('method');
 
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');

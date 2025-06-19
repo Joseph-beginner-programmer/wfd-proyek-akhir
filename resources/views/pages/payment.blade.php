@@ -1,9 +1,15 @@
 @extends('layouts.payment')
 
 @section('content')
+
+
 <body class="bg-gray-100 font-sans">
 
     <div class="container mx-auto p-4 md:p-8">
+        <div class="mb-8">
+            <img src="{{ asset('logo/logo payment.png') }}" alt="RESERVEIN logo" class="h-16">
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-8">
             <div class="lg:col-span-2 space-y-6">
                 
