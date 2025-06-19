@@ -16,16 +16,14 @@ Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
 
-Route::get('/payment', function () {
-    return view('pages.payment');
-})->name('payment');
+
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');
 Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
 Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
 Route::get('/about', [ProfileController::class, 'about'])->name('abouts');
-Route::get('/team', [ProfileController::class, 'team']) ->name('teams'); 
-Route::get('/business', [ProfileController::class, 'business']) ->name('businesss');
+Route::get('/team', [ProfileController::class, 'team'])->name('teams');
+Route::get('/business', [ProfileController::class, 'business'])->name('businesss');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,11 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/venues/{venue}', [ProductController::class, 'update'])->name('venues.update');
     Route::delete('/venues/{venue}', [ProductController::class, 'destroy'])->name('venues.destroy');
     Route::get('/venues/my_venue', [ProductController::class, 'myVenues'])->name('venues.myVenues');
-    
+    Route::get('/payment', function () {
+        return view('pages.payment');
+    })->name('payment');
 });
 
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
-    
+
 // });
 
 Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
@@ -52,4 +52,4 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

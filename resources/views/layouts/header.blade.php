@@ -1,7 +1,12 @@
 <header class="bg-blue-900 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between shadow-lg">
-    <a href="/" class="text-white text-2xl font-bold roboto">ReserveIn</a>
+    <a href="/" class="text-white text-2xl font-bold roboto">
+        <div >
+            <img class="h-11 w-30" src="{{ asset('logo/logo.png') }}">
+        </div>
+        
+    </a>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center text-lg gap-4">
 
         <nav class="hidden md:flex items-center space-x-6">
             <a href="/" class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Home</a>
@@ -9,7 +14,7 @@
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Dashboard</a>
             <a href="{{ route('abouts') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">About Us</a>
-            <a href="{{ route('venues') }}"
+            <a href="{{ route('venues') }} "
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Reserve a Venue</a>
             <a href="{{ route("venues.myVenues") }}" class=" text-gray-200 roboto font-semibold hover:text-white transition-colors">My Venue</a>
         </nav>
@@ -44,7 +49,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
-                        class="text-gray-200 roboto font-semibold hover:text-white transition-colors text-sm">
+                        class="text-gray-200 md:text-lg roboto font-semibold hover:text-white transition-colors text-sm">
                         Log Out
                     </button>
                 </form>

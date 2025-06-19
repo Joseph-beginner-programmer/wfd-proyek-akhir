@@ -65,7 +65,7 @@ class BookingController extends Controller
             }
 
 
-            return redirect()->route('venues')
+            return redirect()->route('payment')
                 ->with('success', 'Booking created successfully!');
         } catch (\Exception $e) {
             return redirect()->back()
