@@ -1,9 +1,8 @@
 <header class="bg-blue-900 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between shadow-lg">
     <a href="/" class="text-white text-2xl font-bold roboto">
-        <div >
+        <div>
             <img class="h-11 w-30" src="{{ asset('logo/logo.png') }}">
         </div>
-        
     </a>
 
     <div class="flex items-center text-lg gap-4">

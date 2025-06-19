@@ -6,7 +6,7 @@ use App\Models\Booking;
 use App\Models\BookingHour;
 use App\Models\JadwalVenue;
 use App\Models\Venue;
-use Carbon\Carbon;  
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +35,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         // Validate request data
         $validated = $request->validate([
             'price' => 'required|numeric',
@@ -47,7 +47,7 @@ class BookingController extends Controller
         try {
             // Create the booking record
             $booking = Booking::create([
-            
+
                 'user_id' => Auth::id(),
                 'venue_id' => $validated['venue_id'],
                 'status' => 'pending', // You can change this to 'confirmed' if applicable
@@ -65,8 +65,7 @@ class BookingController extends Controller
             }
 
 
-            return redirect()->route('payment')
-                ->with('success', 'Booking created successfully!');
+            return redirect()->route('booking.summary', ['id' => $booking->booking_id]);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withErrors(['error' => 'An error occurred while processing your booking.'])
@@ -143,5 +142,16 @@ class BookingController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function summary($id)
+    {
+        
+        $booking = Booking::with(['venue', 'bookingHours.jadwalVenue'])
+            ->where('user_id', Auth::id())
+            ->findOrFail($id);
+    
+
+        return view('pages.payment', compact('booking'));
     }
 }

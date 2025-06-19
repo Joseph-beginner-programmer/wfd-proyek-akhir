@@ -21,6 +21,6 @@ class BookingHour extends Model
 
     public function jadwalVenue()
     {
-        return $this->belongsTo(JadwalVenue::class, 'booking_hour_id');
+        return $this->belongsTo(JadwalVenue::class, 'booking_hour_id', 'jadwal_id');
     }
 }
