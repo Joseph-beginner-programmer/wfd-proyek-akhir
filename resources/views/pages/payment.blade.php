@@ -54,12 +54,15 @@
 
                     </div>
 
-                    <button class="mt-6 text-blue-600 font-semibold flex items-center hover:text-blue-700">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                        </svg>
-                        Tambah Jadwal
-                    </button>
+                    <a href="{{ route('detail', ['id' => $venue_id]) }}">
+                        <button class="mt-6 text-blue-600 font-semibold flex items-center hover:text-blue-700 hover:underline">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Tambah Jadwal
+                        </button>
+                    </a>
+
                 </div>
             </div>
 
@@ -95,7 +98,7 @@
                         <hr class="my-3">
                         <div class="flex justify-between font-bold text-gray-800">
                             <span>Total Bayar</span>
-                            <span>Rp100.000</span>
+                            <span>{{number_format($booking->price, 0, ',', '.')}}</span>
                         </div>
                     </div>
                 </div>
@@ -106,7 +109,7 @@
                         <input id="bayar_lunas" type="radio" name="payment" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blule-500" checked>
                         <label for="bayar_lunas" class="ml-3 block text-sm font-medium text-gray-700">
                             Bayar Lunas
-                            <span class="block font-bold text-gray-800">Rp100.000</span>
+                            <span class="block font-bold text-gray-800">{{number_format($booking->price, 0, ',', '.')}}</span>
                         </label>
                     </div>
                 </div>

@@ -102,7 +102,7 @@
                                     {{ \Carbon\Carbon::parse($jadwal->start_time)->format('H:i') }} -
                                     {{ \Carbon\Carbon::parse($jadwal->end_time)->format('H:i') }}
                                 </p>
-
+  
                             </label>
                         </div>
                         @endif
