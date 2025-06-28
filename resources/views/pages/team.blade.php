@@ -64,7 +64,7 @@
             <div class="text-center mt-16">
                 <a href="{{ route('abouts') }}"
                     class="inline-block bg-blue-800 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                    &larr; Back to About Us
+                    &larr; Back
                 </a>
             </div>
 

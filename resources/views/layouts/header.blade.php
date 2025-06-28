@@ -8,6 +8,14 @@
     <div class="flex items-center text-lg gap-4">
 
         <nav class="hidden md:flex items-center space-x-6">
+            @auth
+                @if (auth()->user()->role === 'admin')
+                    <a href="{{ route('reports.index') }}"
+                        class="text-gray-200 roboto font-semibold hover:text-white transition-colors">
+                        Report
+                    </a>
+                @endif
+            @endauth
             <a href="/" class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Home</a>
             <a href="{{ route('dashboard1') }}"
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Dashboard</a>
@@ -15,7 +23,8 @@
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">About Us</a>
             <a href="{{ route('venues') }} "
                 class="text-gray-200 roboto font-semibold hover:text-white transition-colors">Reserve a Venue</a>
-            <a href="{{ route("venues.myVenues") }}" class=" text-gray-200 roboto font-semibold hover:text-white transition-colors">My Venue</a>
+            <a href="{{ route('venues.myVenues') }}"
+                class=" text-gray-200 roboto font-semibold hover:text-white transition-colors">My Venue</a>
         </nav>
 
         <div class="hidden md:block h-6 w-px bg-blue-700"></div>
@@ -39,19 +48,19 @@
 
             <div class="hidden md:flex items-center">
                 @guest
-                <a href="/login"
-                    class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm">
-                    Log In
-                </a>
+                    <a href="/login"
+                        class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm">
+                        Log In
+                    </a>
                 @endguest
                 @auth
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                        class="text-gray-200 md:text-lg roboto font-semibold hover:text-white transition-colors text-sm">
-                        Log Out
-                    </button>
-                </form>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="text-gray-200 md:text-lg roboto font-semibold hover:text-white transition-colors text-sm">
+                            Log Out
+                        </button>
+                    </form>
                 @endauth
             </div>
 
@@ -81,21 +90,21 @@
         <li class="mb-2"><a href="{{ route('venues') }}" class="roboto hover:underline">Reserve a Venue</a></li>
         <li class="mb-2"><a href="#" class="roboto hover:underline">Partner with us</a></li>
         @guest
-        <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
+            <li class="mb-2"><a href="/login" class="roboto hover:underline">Log In</a></li>
         @endguest
 
         @auth
-        <li class="mb-2">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+            <li class="mb-2">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
 
-                <x-dropdown-link :href="route('logout')"
-                    onclick="event.preventDefault();
+                    <x-dropdown-link :href="route('logout')"
+                        onclick="event.preventDefault();
         this.closest('form').submit();">
-                    {{ __('Log Out') }}
-                </x-dropdown-link>
-            </form>
-        </li>
+                        {{ __('Log Out') }}
+                    </x-dropdown-link>
+                </form>
+            </li>
         @endauth
 
     </ul>
@@ -111,7 +120,7 @@
 
 
     function updateCartBadge() {
-        fetch("{{ route('cart.count')}}")
+        fetch("{{ route('cart.count') }}")
             .then(response => response.json())
             .then(data => {
                 const badge = document.getElementById('cart-badge');

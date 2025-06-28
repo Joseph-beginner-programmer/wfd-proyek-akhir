@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto">
         {{-- Header Section --}}
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-800 sm:text-5xl">PT Marcel Jaya</h2>
+            <h2 class="text-4xl font-bold text-gray-800 sm:text-5xl">Reserve IN</h2>
             <p class="mt-4 text-lg text-gray-600">Mendigitalkan dan menyederhanakan cara Anda memesan venue.</p>
             <hr class="w-24 h-1 bg-blue-800 mx-auto my-6">
         </div>
@@ -62,7 +62,7 @@
         {{-- Back Button --}}
         <div class="text-center mt-16">
             <a href="{{ route('abouts') }}" class="inline-block bg-blue-800 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                &larr; Kembali ke About Us
+                &larr; Back
             </a>
         </div>
 

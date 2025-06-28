@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Pest\Plugins\Profile;
 
 Route::redirect('/', '/landing');
@@ -39,7 +40,10 @@ Route::middleware('auth')->group(function () {
         return view('pages.payment');
     })->name('payment');
     Route::get('/booking/summary/{id}', [BookingController::class, 'summary'])->name('booking.summary');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/partial/{reportName}', [ReportController::class, 'getPartial'])->name('reports.partial');
 });
+
 
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
 
@@ -49,7 +53,7 @@ Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
     ->name('cart.count');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [BookingController::class, 'index'])->name('dashboard1');
+    Route::get('/dashboard1', [BookingController::class, 'index'])->name('dashboard1');
 });
 
 Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
