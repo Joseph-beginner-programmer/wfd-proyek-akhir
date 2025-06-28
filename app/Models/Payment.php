@@ -14,6 +14,7 @@ class Payment extends Model
         'status',
         'payment_date',
         'reference',
+        'total_price'
     ];
 
     public function booking()

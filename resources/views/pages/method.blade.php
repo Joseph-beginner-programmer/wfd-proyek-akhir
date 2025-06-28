@@ -140,10 +140,18 @@
                             class="text-blue-700 font-semibold">Kebijakan privasi</a>.
                     </p>
 
-                    <button
-                        class="w-full bg-blue-800 hover:bg-blue-600 hover:text-gray-200 transistion duration-200 text-white font-bold py-3 px-4 rounded-lg mt-4 ">
-                        Lakukan Pembayaran
-                    </button>
+                    <form method="POST" action="{{ route('payment.process') }}" x-ref="paymentForm">
+                        
+                        @csrf
+                        <input type="hidden" name="booking_id" value="{{ $bookingId }}">
+                        <input type="hidden" name="payment_method" :value="selectedMethod.name">
+                        <input type="hidden" name="total_price" :value="(price + selectedMethod.fee).toFixed(2)">
+
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg mt-4 hover:bg-blue-700 transition">
+                            Lakukan Pembayaran
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
