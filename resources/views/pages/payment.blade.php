@@ -70,7 +70,7 @@
 
                 <a href="#" class="flex justify-between items-center bg-white rounded-xl shadow-md p-4 hover:bg-gray-50 transition">
                     <div class="flex items-center">
-                        <span class="bg-red-100 text-blue-600 p-2 rounded-full">
+                        <span class="bg-blue-100 text-blue-600 p-2 rounded-full">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
                             </svg>
@@ -128,7 +128,7 @@
                     </svg>
                 </a>
 
-                <a href="{{ route('method', ['id' => $booking->booking_id]) }}" class="w-full bg-blue-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition">
+                <a href="{{ route('method', ['id' => $booking->booking_id]) }}" class="w-full bg-blue-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
                     Lanjutkan ke Pembayaran
                 </a>
             </div>
