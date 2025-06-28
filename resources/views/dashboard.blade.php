@@ -71,7 +71,7 @@ $booking_data = $bookings;
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
                         @if ($status === 'pending')
-                        <a href="#"
+                        <a href="{{ route('payment.method', ['id' => $booking->booking_id]) }}"
                             class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">
                             Checkout
                         </a>
@@ -110,7 +110,10 @@ $booking_data = $bookings;
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        <a href="#" class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">Checkout</a>
+                        <a href="{{ route('payment.method', ['id' => $booking->booking_id]) }}"
+                            class="w-full sm:w-auto block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow-md hover:shadow-lg">
+                            Checkout
+                        </a>
                     </div>
                 </div>
 
