@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id');
-            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade')->unique(); // One-to-one
+            $table->foreignId('booking_id')->constrained('bookings', 'booking_id')->onDelete('cascade')->unique(); // One-to-one
             $table->string('payment_method');
             $table->decimal('total_price', 10, 2);
             $table->enum('status', ['pending', 'paid', 'failed', 'cancelled'])->default('pending');

@@ -42,4 +42,9 @@ class Booking extends Model
             'booking_hour_id'    // Local key on BookingHour
         );
     }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'booking_id', 'booking_id');
+    }
 }

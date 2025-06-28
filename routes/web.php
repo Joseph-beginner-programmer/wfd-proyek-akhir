@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment', function () {
         return view('pages.payment');
     })->name('payment');
+    Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process');
+
     Route::get('/booking/summary/{id}', [BookingController::class, 'summary'])->name('booking.summary');
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/partial/{reportName}', [ReportController::class, 'getPartial'])->name('reports.partial');
