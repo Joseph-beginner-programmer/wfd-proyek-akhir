@@ -78,7 +78,7 @@
                         {{-- Menggunakan is_active dari kode lama Anda, ini bisa diganti dengan is_booked --}}
                         {{-- Tampilan jika SUDAH DI-BOOKING --}}
                         <div
-                            class="text-center p-3 border bg-gray-50 text-gray-400 rounded-lg cursor-not-allowed">
+                            class="text-center border bg-gray-50 text-gray-400 rounded-lg cursor-not-allowed">
                             <p class="text-xs">60 Menit</p>
                             <p class="font-bold my-1 text-gray-400">
                                 {{ \Carbon\Carbon::parse($jadwal->start_time)->format('H:i') }} -

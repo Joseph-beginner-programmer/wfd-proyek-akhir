@@ -14,7 +14,7 @@ class JadwalVenue extends Model
     ];
     public function bookingHours()
     {
-        return $this->hasMany(BookingHour::class, 'booking_hour_id');
+        return $this->hasMany(BookingHour::class, 'jadwal_id', 'jadwal_id');
     }
     public function bookings()
     {

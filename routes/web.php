@@ -17,7 +17,7 @@ Route::redirect('/', '/landing');
 Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
-Route::get('/payment/method/{id}', [PaymentController::class, 'showMethod'])->name('method');
+Route::get('/payment/method/{id}', [PaymentController::class, 'showMethod'])->name('payment.method');
 
 
 Route::get('product', [ProductController::class, 'index'])->name('venues');

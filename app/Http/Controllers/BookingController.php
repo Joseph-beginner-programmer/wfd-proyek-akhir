@@ -55,14 +55,16 @@ class BookingController extends Controller
                 'price' => $validated['price'],
             ]);
 
+            
             // Save selected booking hours
             foreach ($validated['jadwal_ids'] as $jadwalId) {
                 BookingHour::create([
                     'booking_id' => $booking->booking_id,
-                    'booking_hour_id' => $jadwalId,
+                    'jadwal_id' => $jadwalId,
                     'is_active' => true,
                 ]);
             }
+
 
 
             return redirect()->route('booking.summary', [
@@ -91,19 +93,38 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $venue = Venue::with('tipeVenue')->findOrFail($id);
+
         $dates = collect();
         for ($i = 0; $i < 7; $i++) {
             $dates->push(Carbon::now()->addDays($i));
         }
-        // 2. Ambil SEMUA potensi jadwal dari tabel JadwalVenue.
-        $allJadwals = JadwalVenue::where('venue_id', $id)->where('is_active', 1)->orderBy('start_time')->get();
+
+        $selectedDate = Carbon::now()->format('Y-m-d');
+
+        // Fetch all jadwals for this venue
+        $allJadwals = JadwalVenue::where('venue_id', $id)
+            ->orderBy('start_time')
+            ->get()
+            ->map(function ($jadwal) use ($selectedDate) {
+                // Check if this jadwal is booked for the selected date
+                $isBooked = BookingHour::where('jadwal_id', $jadwal->jadwal_id)
+                    ->whereHas('booking', function ($query) use ($selectedDate) {
+                        $query->where('booking_date', $selectedDate);
+                    })
+                    ->exists();
+
+                $jadwal->is_active = !$isBooked;
+                return $jadwal;
+            });
+
         return view('pages.detail', [
             'venue' => $venue,
             'dates' => $dates,
             'allJadwals' => $allJadwals,
-            'selectedDate' => Carbon::now()->format('Y-m-d'),
+            'selectedDate' => $selectedDate,
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -131,6 +152,7 @@ class BookingController extends Controller
 
     public function summary($id, Request $request)
     {
+        
 
         $booking = Booking::with(['venue', 'bookingHours.jadwalVenue'])
             ->where('user_id', Auth::id())

@@ -11,7 +11,8 @@ class BookingHour extends Model
     protected $fillable = [
         'booking_id',
         'booking_hour_id', // FK to jadwal_venue
-        'is_active',       // or any other additional fields
+        'is_active',
+        'jadwal_id'       // or any other additional fields
     ];
 
     public function booking()
@@ -21,6 +22,6 @@ class BookingHour extends Model
 
     public function jadwalVenue()
     {
-        return $this->belongsTo(JadwalVenue::class, 'booking_hour_id', 'jadwal_id');
+        return $this->belongsTo(JadwalVenue::class, 'jadwal_id', 'jadwal_id');
     }
 }
