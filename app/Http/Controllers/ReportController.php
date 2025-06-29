@@ -59,36 +59,37 @@ class ReportController extends Controller
 
     public function getFinancial()
     {
-        $totalRevenue = Payment::where('status', 'paid')->sum('amount');
+        // 1. Total revenue = sum of all payment amounts
+        $totalRevenue = Payment::sum('amount');
+
+        // 2. Completed bookings count
         $completedBookings = Booking::where('status', 'completed')->count();
-        $pendingTransactions = Booking::where('status', 'confirmed')
-            ->whereDoesntHave('payment', function ($query) {
-                $query->where('status', 'paid');
-            })->count();
 
-        $transactions = Payment::where('payments.status', 'paid')
-            ->join('bookings', 'payments.booking_id', '=', 'bookings.booking_id')
-            ->join('users', 'bookings.user_id', '=', 'users.user_id')
-            ->select(
-                'payments.payment_id as transaction_id',
-                'payments.booking_id',
-                'users.name as customer_name',
-                'payments.amount',
-                'payments.payment_method',
-                'payments.created_at as paid_at'
-            )
-            ->orderBy('payments.created_at', 'desc')
-            ->get();
+        // 3. Pending transactions = bookings that have no payment yet
+        $pendingTransactions = Booking::doesntHave('payment')->count();
 
-        $financialData = [
+        // 4. Transactions list (only from existing payments)
+        $transactions = Payment::with('booking.user')
+            ->latest()
+            ->get()
+            ->map(function ($payment) {
+                return [
+                    'transaction_id'   => $payment->payment_id,
+                    'booking_id'       => $payment->booking_id,
+                    'customer_name'    => $payment->booking->user->name ?? '-',
+                    'amount'           => $payment->amount,
+                    'payment_method'   => $payment->payment_method,
+                    'paid_at'          => $payment->created_at,
+                ];
+            });
+
+        return response()->json([
             'summary' => [
-                'total_revenue' => $totalRevenue,
-                'completed_bookings' => $completedBookings,
+                'total_revenue'        => $totalRevenue,
+                'completed_bookings'   => $completedBookings,
                 'pending_transactions' => $pendingTransactions,
             ],
-            'transactions' => $transactions
-        ];
-
-        return response()->json($financialData);
+            'transactions' => $transactions,
+        ]);
     }
 }

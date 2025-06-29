@@ -39,6 +39,7 @@ class PaymentController extends Controller
             Payment::create([
                 'booking_id' => $validated['booking_id'],
                 'payment_method' => $validated['payment_method'],
+                'status' => "paid",
                 'total_price' => $validated['total_price'],
                 'payment_date' => now()->toDateString(), // since your field is `date`, not `datetime`
             ]);

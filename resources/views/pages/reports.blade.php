@@ -280,7 +280,7 @@
 
             return times.length > 0 ? times[times.length - 1].slice(0, 5) : '-';
         }
-        
+
         function formatTimeRange(booking_hours) {
             if (!Array.isArray(booking_hours) || booking_hours.length === 0) return '-';
 
@@ -304,6 +304,8 @@
                 const response = await fetch(API_URL.financial);
                 if (!response.ok) throw new Error('Gagal mengambil data keuangan.');
                 const data = await response.json();
+                console.log(data)
+                throw new Error("nice")
                 loadedData.financial = data;
                 renderFinancialReport(data);
             } catch (error) {
