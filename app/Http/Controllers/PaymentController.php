@@ -14,7 +14,7 @@ class PaymentController extends Controller
     {
         $booking = Booking::where('user_id', Auth::id())->findOrFail($bookingId);
 
-        $user = Auth::user(); // Get logged-in user's basic info
+        $user = Auth::user(); 
 
         return view('pages.method', [
             'bookingId' => $booking->booking_id,
@@ -31,23 +31,30 @@ class PaymentController extends Controller
             'payment_method' => 'required|string',
             'total_price' => 'required|numeric',
         ]);
-        
+
         $booking = Booking::where('booking_id', $validated['booking_id'])->firstOrFail();
 
         DB::transaction(function () use ($validated, $booking) {
-            // Create payment
             Payment::create([
                 'booking_id' => $validated['booking_id'],
                 'payment_method' => $validated['payment_method'],
                 'status' => "paid",
                 'total_price' => $validated['total_price'],
-                'payment_date' => now()->toDateString(), // since your field is `date`, not `datetime`
+                'payment_date' => now()->toDateString(),
             ]);
 
-            // Update booking status
             $booking->update(['booking_status' => 'confirmed']);
         });
 
         return redirect()->route('dashboard1')->with('success', 'Pembayaran berhasil!');
+    }
+
+    public function summary($id, Request $request)
+    {
+        $booking = Booking::with(['venue', 'bookingHours.jadwalVenue'])
+            ->where('user_id', Auth::id())
+            ->findOrFail($id);
+        $venue_id = $request->input('venue_id') ?? $booking->venue_id;
+        return view('pages.payment', compact('booking', 'venue_id'));
     }
 }

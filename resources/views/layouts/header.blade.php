@@ -76,7 +76,6 @@
 
 <aside id="mobileSidebar"
     class="fixed top-0 right-0 h-full z-40 bg-gray-800 text-white p-4 w-64 transform translate-x-full transition-transform md:hidden">
-    <!-- Right Arrow Close Button -->
     <button onclick="toggleSidebar()" class="text-white mb-4 flex items-center space-x-2">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
@@ -134,15 +133,8 @@
             .catch(error => {
                 console.error('Error fetching cart count:', error);
             });
-    }
-
-    // Update every 30 seconds
-    setInterval(updateCartBadge, 30000);
-
-    // Update when page loads
+    }    setInterval(updateCartBadge, 30000);
     document.addEventListener('DOMContentLoaded', updateCartBadge);
 </script>
-<!-- Optional overlay -->
-<!-- Light Transparent Overlay -->
 <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden" onclick="toggleSidebar()">
 </div>

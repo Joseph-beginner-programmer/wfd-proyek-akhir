@@ -8,13 +8,11 @@
 
         <form action="{{ route('login.submit') }}" method="POST" class="space-y-5">
             @csrf
-            <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" name="email" required class="mt-1 w-full px-4 py-2 border rounded-md focus:ring-purple-500 focus:border-purple-500">
             </div>
 
-            <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <div class="relative">
@@ -25,7 +23,6 @@
                 </div>
             </div>
 
-            <!-- Terms -->
             <div class="flex items-start">
                 <input type="checkbox" id="terms" class="mt-1">
                 <label for="terms" class="ml-2 text-sm text-gray-600">
@@ -33,24 +30,20 @@
                 </label>
             </div>
 
-            <!-- Sign Up Button -->
             <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Login</button>
         </form>
 
-        <!-- OR Divider -->
         <div class="my-5 flex items-center">
             <hr class="flex-grow border-gray-300">
             <span class="px-2 text-gray-500 text-sm">OR</span>
             <hr class="flex-grow border-gray-300">
         </div>
 
-        <!-- Sign up with Google -->
         <button class="w-full border py-2 rounded-md flex items-center justify-center gap-3 hover:bg-gray-100 transition">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
             <span class="text-sm text-gray-700">Sign Up with Google</span>
         </button>
 
-        <!-- Login link -->
         <p class="text-center text-sm text-gray-600 mt-4">
             Dont have an account? 
         <a  class="text-purple-600 hover:underline font-medium">Register</a>

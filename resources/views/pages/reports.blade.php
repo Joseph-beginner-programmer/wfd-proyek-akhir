@@ -5,7 +5,6 @@
     <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Admin Report</h1>
 
     <div class="mb-4 border-b border-gray-200">
-        {{-- PERBAIKAN: Hapus tag <a> di sini agar JS bisa handle klik --}}
         <nav class="-mb-px flex space-x-4 md:space-x-8" aria-label="Tabs" id="report-tabs">
             <button data-tab-target="#users-report" class="tab-button active-tab">
                 <i class="fas fa-users mr-2"></i>
@@ -22,10 +21,9 @@
         </nav>
     </div>
 
-    {{-- Konten untuk setiap Tab --}}
     <div id="report-tab-content">
-        {{-- 1. Panel Users Report --}}
         <div id="users-report" class="tab-content">
+            {{-- 1. Panel Users --}}
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="p-5 border-b border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-700">Data Pengguna Terdaftar</h3>
@@ -86,7 +84,7 @@
             </div>
         </div>
 
-        {{-- 3. Panel Keuangan --}}
+        {{-- 3. Panel Financial --}}
         <div id="financial-report" class="tab-content hidden">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <div class="bg-green-500 text-white rounded-lg shadow-lg p-6">
@@ -133,10 +131,7 @@
     </div>
 </div>
 
-{{-- Untuk FontAwesome Icons (opsional) --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-{{-- Tambahkan style untuk Tab dan Table cell agar lebih rapi --}}
 <style>
     .th-cell {
         @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
@@ -159,7 +154,6 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // URL endpoint API Anda.
         const API_URL = {
             users: "{{ route('reports.users') }}",
             bookings: "{{ route('reports.bookings') }}",
@@ -412,7 +406,6 @@
                 const newRole = document.querySelector(`select[data-user-id="${userId}"]`).value;
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                // Tampilkan status loading pada tombol
                 button.textContent = 'Menyimpan...';
                 button.disabled = true;
 
@@ -435,7 +428,6 @@
                     })
                     .then(data => {
                         alert(data.message);
-                        // Refresh data pengguna setelah berhasil update
                         loadedData.users = null;
                         loadUsersReport();
                     })
@@ -447,8 +439,6 @@
                     });
             }
         });
-
-        // Muat data untuk tab pertama saat halaman dibuka
         loadUsersReport();
     });
 </script>

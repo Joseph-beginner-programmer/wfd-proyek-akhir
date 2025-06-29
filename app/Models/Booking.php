@@ -39,10 +39,10 @@ class Booking extends Model
         return $this->hasManyThrough(
             JadwalVenue::class,
             BookingHour::class,
-            'booking_id',        // Foreign key on BookingHour
-            'jadwal_id',         // Foreign key on JadwalVenue
-            'id',                // Local key on Booking
-            'booking_hour_id'    // Local key on BookingHour
+            'booking_id',        
+            'jadwal_id',         
+            'id',                
+            'booking_hour_id'  
         );
     }
 

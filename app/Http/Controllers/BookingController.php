@@ -35,8 +35,6 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-
-        // Validate request data
         $validated = $request->validate([
             'price' => 'required|numeric',
             'venue_id' => 'required|exists:venues,venue_id',
@@ -45,18 +43,14 @@ class BookingController extends Controller
         ]);
 
         try {
-            // Create the booking record
             $booking = Booking::create([
 
                 'user_id' => Auth::id(),
                 'venue_id' => $validated['venue_id'],
-                'status' => 'pending', // You can change this to 'confirmed' if applicable
-                'booking_date' => $request->input('booking_date'), // if you pass this too
+                'status' => 'pending', 
+                'booking_date' => $request->input('booking_date'), 
                 'price' => $validated['price'],
             ]);
-
-
-            // Save selected booking hours
             foreach ($validated['jadwal_ids'] as $jadwalId) {
                 BookingHour::create([
                     'booking_id' => $booking->booking_id,
@@ -64,9 +58,6 @@ class BookingController extends Controller
                     'is_active' => true,
                 ]);
             }
-
-
-
             return redirect()->route('booking.summary', [
                 'id' => $booking->booking_id
             ])->with(['venue_id' => $request->venue_id]);;
@@ -76,37 +67,22 @@ class BookingController extends Controller
                 ->withInput();
         }
     }
-
-    public function getPendingBookingCount()
-    {
-        $count = Booking::where('user_id', Auth::id())
-            ->where('booking_status', 'pending')
-            ->count();
-
-        return response()->json(['count' => $count]);
-    }
-
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         $venue = Venue::with('tipeVenue')->findOrFail($id);
-
         $dates = collect();
         for ($i = 0; $i < 7; $i++) {
             $dates->push(Carbon::now()->addDays($i));
         }
 
         $selectedDate = Carbon::now()->format('Y-m-d');
-
-        // Fetch all jadwals for this venue
         $allJadwals = JadwalVenue::where('venue_id', $id)
             ->orderBy('start_time')
             ->get()
             ->map(function ($jadwal) use ($selectedDate) {
-                // Check if this jadwal is booked for the selected date
                 $isBooked = BookingHour::where('jadwal_id', $jadwal->jadwal_id)
                     ->whereHas('booking', function ($query) use ($selectedDate) {
                         $query->where('booking_date', $selectedDate);
@@ -152,21 +128,24 @@ class BookingController extends Controller
 
     public function summary($id, Request $request)
     {
-
-
         $booking = Booking::with(['venue', 'bookingHours.jadwalVenue'])
             ->where('user_id', Auth::id())
             ->findOrFail($id);
-
         $venue_id = $request->input('venue_id') ?? $booking->venue_id;
-
         return view('pages.payment', compact('booking', 'venue_id'));
     }
 
     public function showBookingDetail($id)
     {
         $booking = Booking::with(['user', 'venue', 'bookingHours.jadwalVenue'])->findOrFail($id);
-
         return view('pages.show_detail', compact('booking'));
+    }
+
+     public function getPendingBookingCount()
+    {
+        $count = Booking::where('user_id', Auth::id())
+            ->where('booking_status', 'pending')
+            ->count();
+        return response()->json(['count' => $count]);
     }
 }

@@ -18,7 +18,6 @@ class ReportController extends Controller
 
     public function getUsers()
     {
-        // Langsung ambil dari database
         $users = User::select(
             'user_id',
             'name',
@@ -46,12 +45,11 @@ class ReportController extends Controller
     public function getBookings()
     {
         DB::enableQueryLog();
-
         $bookings = Booking::with([
             'user',
             'venue',
             'payment',
-            'bookingHours.jadwalVenue' // include jadwalVenue inside bookingHours
+            'bookingHours.jadwalVenue'
         ])->get();
 
         return response()->json($bookings);
