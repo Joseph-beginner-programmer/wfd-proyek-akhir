@@ -45,26 +45,14 @@ class ReportController extends Controller
 
     public function getBookings()
     {
-        // Mengambil data booking asli dari database
-        // Asumsi relasi sudah didefinisikan di Model Booking
-        $bookings = Booking::with(['user', 'venue'])
-            ->select(
-                'bookings.booking_id',
-                'users.name as customer_name',
-                'venues.name as venue_name',
-                'bookings.start_date',
-                'bookings.end_date',
-                'bookings.status as booking_status',
-                'bookings.price',
-                DB::raw("(CASE WHEN payments.status = 'paid' THEN 'Paid' ELSE 'Unpaid' END) as payment_status"),
-                'bookings.created_at'
-            )
-            ->join('users', 'bookings.user_id', '=', 'users.user_id')
-            ->join('venues', 'bookings.venue_id', '=', 'venues.venue_id')
-            ->leftJoin('payments', 'bookings.booking_id', '=', 'payments.booking_id')
-            ->orderBy('bookings.created_at', 'desc')
-            ->get();
-        
+        DB::enableQueryLog();
+        $bookings = Booking::with([
+            'user',
+            'venue',
+            'payment',
+            'bookingHours.jadwalVenue'
+        ])->get();
+
         return response()->json($bookings);
     }
 
