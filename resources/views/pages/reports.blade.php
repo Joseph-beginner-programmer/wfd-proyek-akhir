@@ -1,9 +1,11 @@
 @extends('layouts.layout')
+
 @section('content')
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Admin Report</h1>
 
         <div class="mb-4 border-b border-gray-200">
+            {{-- PERBAIKAN: Hapus tag <a> di sini agar JS bisa handle klik --}}
             <nav class="-mb-px flex space-x-4 md:space-x-8" aria-label="Tabs" id="report-tabs">
                 <button data-tab-target="#users-report" class="tab-button active-tab">
                     <i class="fas fa-users mr-2"></i>
@@ -17,14 +19,13 @@
                     <i class="fas fa-sack-dollar mr-2"></i>
                     Financial Reports
                 </button>
-
             </nav>
         </div>
 
         {{-- Konten untuk setiap Tab --}}
         <div id="report-tab-content">
             {{-- 1. Panel Users Report --}}
-            <div id="users-report" class="tab-content active-content">
+            <div id="users-report" class="tab-content">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="p-5 border-b border-gray-200">
                         <h3 class="text-xl font-semibold text-gray-700">Data Pengguna Terdaftar</h3>
@@ -34,21 +35,11 @@
                             <table class="min-w-full bg-white">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            #</th>
-                                        <th
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Nama User</th>
-                                        <th
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Email</th>
-                                        <th
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Role</th>
-                                        <th
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Aksi</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama User</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-report-table-body" class="divide-y divide-gray-200">
@@ -62,7 +53,7 @@
                 </div>
             </div>
 
-            {{-- 2. Panel  Booking --}}
+            {{-- 2. Panel Booking --}}
             <div id="bookings-report" class="tab-content hidden">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="p-5 border-b border-gray-200">
@@ -95,7 +86,7 @@
                 </div>
             </div>
 
-            {{-- 3. Panel  Keuangan --}}
+            {{-- 3. Panel Keuangan --}}
             <div id="financial-report" class="tab-content hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                     <div class="bg-green-500 text-white rounded-lg shadow-lg p-6">
@@ -175,21 +166,19 @@
                 financial: '{{ route('reports.financial') }}'
             };
 
-            // Objek untuk melacak data yang sudah dimuat agar tidak fetch berulang kali
             const loadedData = {
                 users: null,
                 bookings: null,
                 financial: null
             };
 
-            // Fungsi untuk memuat data Laporan Pengguna
             async function loadUsersReport() {
-                if (loadedData.users) return renderUsersReport(loadedData.users); // Gunakan cache jika ada
+                if (loadedData.users) return renderUsersReport(loadedData.users);
                 try {
                     const response = await fetch(API_URL.users);
                     if (!response.ok) throw new Error('Gagal mengambil data pengguna.');
                     const data = await response.json();
-                    loadedData.users = data; // Simpan ke cache
+                    loadedData.users = data;
                     renderUsersReport(data);
                 } catch (error) {
                     console.error('Error Users Report:', error);
@@ -213,13 +202,14 @@
                     <td class="td-cell font-medium text-gray-900">${user.name}</td>
                     <td class="td-cell">${user.email}</td>
                     <td class="td-cell">
-                        <select class="block w-full rounded-md border-gray-300 shadow-sm text-sm" data-user-id="${user.user_id}"">
-                            <option value="User" ${user.role === 'user' ? 'selected' : ''}>User</option>
-                            <option value="Admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                        <select class="block w-full rounded-md border-gray-300 shadow-sm text-sm" data-user-id="${user.user_id}">
+                            <option value="user" ${user.role.toLowerCase() === 'user' ? 'selected' : ''}>User</option>
+                            <option value="admin" ${user.role.toLowerCase() === 'admin' ? 'selected' : ''}>Admin</option>
                         </select>
                     </td>
                     <td class="td-cell">
-                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1 px-3 rounded text-xs btn-save-role" data-user-id="${user.id}">Simpan</button>
+                        {{-- PERBAIKAN: gunakan user.user_id agar konsisten dengan <select> --}}
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1 px-3 rounded text-xs btn-save-role" data-user-id="${user.user_id}">Simpan</button>
                     </td>
                 </tr>
             `;
@@ -227,7 +217,6 @@
                 });
             }
 
-            // Fungsi untuk memuat data Laporan Booking
             async function loadBookingsReport() {
                 if (loadedData.bookings) return renderBookingsReport(loadedData.bookings);
                 try {
@@ -269,7 +258,6 @@
                 });
             }
 
-            // Fungsi untuk memuat data Laporan Keuangan
             async function loadFinancialReport() {
                 if (loadedData.financial) return renderFinancialReport(loadedData.financial);
                 try {
@@ -314,7 +302,6 @@
                 });
             }
 
-            // --- Helper Functions untuk warna badge Tailwind ---
             function getBadgeBaseClass() {
                 return 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full';
             }
@@ -349,22 +336,19 @@
                 }
             }
 
-            // --- Event Listener untuk Tab ---
             const tabs = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
 
             tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Nonaktifkan semua tab
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault(); 
                     tabs.forEach(item => item.classList.remove('active-tab'));
                     tabContents.forEach(content => content.classList.add('hidden'));
 
-                    // Aktifkan tab yang di-klik
                     tab.classList.add('active-tab');
                     const target = document.querySelector(tab.dataset.tabTarget);
                     target.classList.remove('hidden');
 
-                    // Muat data untuk tab yang relevan
                     switch (tab.dataset.tabTarget) {
                         case '#users-report':
                             loadUsersReport();
@@ -379,38 +363,50 @@
                 });
             });
 
-            // --- Event Listener untuk Simpan Role ---
             document.getElementById('users-report-table-body').addEventListener('click', function(e) {
                 if (e.target && e.target.classList.contains('btn-save-role')) {
-                    const userId = e.target.dataset.userId;
+                    const button = e.target;
+                    const userId = button.dataset.userId;
                     const newRole = document.querySelector(`select[data-user-id="${userId}"]`).value;
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                    fetch("{{ route('admin.updateRole') }}", {
+                    // Tampilkan status loading pada tombol
+                    button.textContent = 'Menyimpan...';
+                    button.disabled = true;
+
+                    fetch("{{ route('reports.updateRole') }}", {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                'X-CSRF-TOKEN': csrfToken 
                             },
                             body: JSON.stringify({
                                 user_id: userId,
-                                role: newRole
-                                    .toLowerCase()
+                                role: newRole.toLowerCase()
                             })
                         })
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Gagal memperbarui. Status: ' + response.status);
+                            }
+                            return response.json();
+                        })
                         .then(data => {
                             alert(data.message);
+                            // Refresh data pengguna setelah berhasil update
+                            loadedData.users = null;
+                            loadUsersReport();
                         })
                         .catch(error => {
                             console.error('Update error:', error);
                             alert('Gagal memperbarui role.');
+                            button.textContent = 'Simpan';
+                            button.disabled = false;
                         });
                 }
             });
 
-
+            // Muat data untuk tab pertama saat halaman dibuka
             loadUsersReport();
         });
     </script>

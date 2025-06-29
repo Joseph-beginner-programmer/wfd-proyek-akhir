@@ -51,10 +51,7 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/bookings', [ReportController::class, 'getBookings'])->name('bookings');
     Route::get('/financial', [ReportController::class, 'getFinancial'])->name('financial');
 });
-Route::post('/report/update-role', [ReportController::class, 'updateRole'])->name('report.updateRole');
-// Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
-
-// });
+Route::patch('/report/update-role', [ReportController::class, 'updateRole'])->name('reports.updateRole');
 
 Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
     ->name('cart.count');

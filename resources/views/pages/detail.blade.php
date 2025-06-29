@@ -67,12 +67,8 @@
 
 
                     <h2 class="mt-4 text-2xl font-bold text-gray-800 mb-2">Pilih Jadwal</h2>
-
-                    {{-- Container Grid untuk Jadwal --}}
-                    {{-- Container Grid untuk Jadwal --}}
                     <div id="jadwal-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
 
-                        {{-- Loop semua data jadwal yang dikirim dari controller --}}
                         @foreach ($allJadwals as $jadwal)
                         @if (!$jadwal->is_active)
                         {{-- Menggunakan is_active dari kode lama Anda, ini bisa diganti dengan is_booked --}}

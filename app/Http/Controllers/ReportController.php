@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Venue;
 use App\Models\Booking;
 use App\Models\Payment;
-use Illuminate\View\View;
-use App\Models\JadwalVenue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ReportController extends Controller
@@ -20,67 +18,88 @@ class ReportController extends Controller
 
     public function getUsers()
     {
+        // Langsung ambil dari database
         $users = User::select(
             'user_id',
             'name',
             'email',
             'role',
-        )->get();
+        )->orderBy('name')->get();
 
         return response()->json($users);
     }
+
     public function updateRole(Request $request)
     {
         $request->validate([
             'user_id' => 'required|exists:users,user_id',
-            'role' => 'required|in:admin,user' // pastikan sesuai database
+            'role' => 'required|in:admin,user'
         ]);
-Log::info('Update Role Request', $request->all());
 
-        $user = User::where('user_id', $request->user_id)->first();
+        $user = User::where('user_id', $request->user_id)->firstOrFail();
         $user->role = strtolower($request->role);
         $user->save();
 
-        return response()->json(['message' => 'Role berhasil diperbarui.']);
+        return response()->json(['message' => 'Role untuk ' . $user->name . ' berhasil diperbarui.']);
     }
 
-    /**
-     * Mengambil data laporan booking.
-     */
     public function getBookings()
     {
-        // GANTI DENGAN LOGIKA DATABASE ANDA
-        // Contoh: $bookings = Booking::with('user', 'venue')->latest()->get();
-
-        // Data dummy:
-        $dummyBookings = [
-            ['booking_id' => 'RSRV-20250628-001', 'customer_name' => 'Citra Lestari', 'venue_name' => 'Aula Serbaguna', 'start_date' => '2025-07-10', 'end_date' => '2025-07-11', 'booking_status' => 'Confirmed', 'total_price' => 1500000, 'payment_status' => 'Paid', 'created_at' => '2025-06-28T10:30:00Z'],
-            ['booking_id' => 'RSRV-20250627-005', 'customer_name' => 'Andi Wijaya', 'venue_name' => 'Lapangan Futsal', 'start_date' => '2025-08-01', 'end_date' => '2025-08-01', 'booking_status' => 'Pending', 'total_price' => 250000, 'payment_status' => 'Unpaid', 'created_at' => '2025-06-27T15:00:00Z'],
-        ];
-
-        // return response()->json($dummyBookings);
-
+        // Mengambil data booking asli dari database
+        // Asumsi relasi sudah didefinisikan di Model Booking
+        $bookings = Booking::with(['user', 'venue'])
+            ->select(
+                'bookings.booking_id',
+                'users.name as customer_name',
+                'venues.name as venue_name',
+                'bookings.start_date',
+                'bookings.end_date',
+                'bookings.status as booking_status',
+                'bookings.total_price',
+                DB::raw("(CASE WHEN payments.status = 'paid' THEN 'Paid' ELSE 'Unpaid' END) as payment_status"),
+                'bookings.created_at'
+            )
+            ->join('users', 'bookings.user_id', '=', 'users.user_id')
+            ->join('venues', 'bookings.venue_id', '=', 'venues.venue_id')
+            ->leftJoin('payments', 'bookings.booking_id', '=', 'payments.booking_id')
+            ->orderBy('bookings.created_at', 'desc')
+            ->get();
+        
+        return response()->json($bookings);
     }
 
-    /**
-     * Mengambil data laporan keuangan.
-     */
     public function getFinancial()
     {
-        // GANTI DENGAN LOGIKA DATABASE ANDA (agregasi, dll)
+        $totalRevenue = Payment::where('status', 'paid')->sum('amount');
+        $completedBookings = Booking::where('status', 'completed')->count();
+        $pendingTransactions = Booking::where('status', 'confirmed')
+            ->whereDoesntHave('payment', function ($query) {
+                $query->where('status', 'paid');
+            })->count();
 
-        // Data dummy:
-        $dummyFinancial = [
+        $transactions = Payment::where('payments.status', 'paid')
+            ->join('bookings', 'payments.booking_id', '=', 'bookings.booking_id')
+            ->join('users', 'bookings.user_id', '=', 'users.user_id')
+            ->select(
+                'payments.payment_id as transaction_id',
+                'payments.booking_id',
+                'users.name as customer_name',
+                'payments.amount',
+                'payments.payment_method',
+                'payments.created_at as paid_at'
+            )
+            ->orderBy('payments.created_at', 'desc')
+            ->get();
+
+        $financialData = [
             'summary' => [
-                'total_revenue' => 7550000,
-                'completed_bookings' => 15,
-                'pending_transactions' => 3,
+                'total_revenue' => $totalRevenue,
+                'completed_bookings' => $completedBookings,
+                'pending_transactions' => $pendingTransactions,
             ],
-            'transactions' => [
-                ['transaction_id' => 'TRX-101', 'booking_id' => 'RSRV-20250628-001', 'customer_name' => 'Citra Lestari', 'amount' => 1500000, 'payment_method' => 'Bank Transfer', 'paid_at' => '2025-06-28T11:00:00Z'],
-                ['transaction_id' => 'TRX-102', 'booking_id' => 'RSRV-20250625-002', 'customer_name' => 'Budi Santoso', 'amount' => 500000, 'payment_method' => 'Credit Card', 'paid_at' => '2025-06-26T09:15:00Z'],
-            ]
+            'transactions' => $transactions
         ];
-        return response()->json($dummyFinancial);
+
+        return response()->json($financialData);
     }
 }

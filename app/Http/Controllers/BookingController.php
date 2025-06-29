@@ -55,7 +55,7 @@ class BookingController extends Controller
                 'price' => $validated['price'],
             ]);
 
-            
+
             // Save selected booking hours
             foreach ($validated['jadwal_ids'] as $jadwalId) {
                 BookingHour::create([
@@ -152,7 +152,7 @@ class BookingController extends Controller
 
     public function summary($id, Request $request)
     {
-        
+
 
         $booking = Booking::with(['venue', 'bookingHours.jadwalVenue'])
             ->where('user_id', Auth::id())
@@ -165,15 +165,8 @@ class BookingController extends Controller
 
     public function showBookingDetail($id)
     {
-        // Eager load relasi 'user' dan 'venue'
-        $booking = Booking::with(['user', 'venue'])->findOrFail($id);
+        $booking = Booking::with(['user', 'venue', 'bookingHours.jadwalVenue'])->findOrFail($id);
 
-        // Otorisasi
-        if (Auth::id() !== $booking->user_id) {
-            abort(403, 'AKSES DITOLAK.');
-        }
-
-        // Kirim data ke view
         return view('pages.show_detail', compact('booking'));
     }
 }
