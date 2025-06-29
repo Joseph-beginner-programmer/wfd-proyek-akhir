@@ -219,7 +219,6 @@
                 const response = await fetch(API_URL.bookings);
                 if (!response.ok) throw new Error('Gagal mengambil data booking.');
                 const data = await response.json();
-                console.log(data);
                 loadedData.bookings = data;
                 renderBookingsReport(data);
             } catch (error) {
@@ -299,7 +298,6 @@
                 if (!response.ok) throw new Error('Gagal mengambil data keuangan.');
                 const data = await response.json();
                 console.log(data)
-                throw new Error("nice")
                 loadedData.financial = data;
                 renderFinancialReport(data);
             } catch (error) {
@@ -326,10 +324,10 @@
             data.transactions.forEach((trx, index) => {
                 const row = `
                 <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}">
-                    <td class="td-cell font-mono">${trx.transaction_id}</td>
+                    <td class="td-cell font-mono">${trx.payment_id}</td>
                     <td class="td-cell font-mono">${trx.booking_id}</td>
                     <td class="td-cell">${trx.customer_name}</td>
-                    <td class="td-cell">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(trx.amount)}</td>
+                    <td class="td-cell">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(trx.total_price)}</td>
                     <td class="td-cell">${trx.payment_method}</td>
                     <td class="td-cell">${new Date(trx.paid_at).toLocaleString('id-ID')}</td>
                 </tr>

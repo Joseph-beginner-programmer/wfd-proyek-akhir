@@ -58,10 +58,10 @@ class ReportController extends Controller
     public function getFinancial()
     {
         // 1. Total revenue = sum of all payment amounts
-        $totalRevenue = Payment::sum('amount');
+        $totalRevenue = Payment::sum('total_price');
 
         // 2. Completed bookings count
-        $completedBookings = Booking::where('status', 'completed')->count();
+        $completedBookings = Booking::where('booking_status', 'confirmed')->count();
 
         // 3. Pending transactions = bookings that have no payment yet
         $pendingTransactions = Booking::doesntHave('payment')->count();
@@ -72,10 +72,10 @@ class ReportController extends Controller
             ->get()
             ->map(function ($payment) {
                 return [
-                    'transaction_id'   => $payment->payment_id,
+                    'payment_id'   => $payment->payment_id,
                     'booking_id'       => $payment->booking_id,
                     'customer_name'    => $payment->booking->user->name ?? '-',
-                    'amount'           => $payment->amount,
+                    'total_price'      => $payment->total_price,
                     'payment_method'   => $payment->payment_method,
                     'paid_at'          => $payment->created_at,
                 ];
