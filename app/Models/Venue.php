@@ -37,4 +37,8 @@ class Venue extends Model
     {
         return $this->hasMany(JadwalVenue::class, 'venue_id', 'venue_id');
     }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'venue_id');
+    }
 }

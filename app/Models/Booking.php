@@ -20,7 +20,10 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function venue()
     {
         return $this->belongsTo(Venue::class, 'venue_id', 'venue_id');

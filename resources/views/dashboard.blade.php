@@ -76,7 +76,7 @@ $booking_data = $bookings;
                             Checkout
                         </a>
                         @else
-                        <a href="#"
+                        <a href="{{ route('booking.detail', ['id' => $booking->booking_id])}}"
                             class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">
                             See Details
                         </a>
@@ -149,7 +149,7 @@ $booking_data = $bookings;
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
+                        <a href="{{ route('booking.detail', ['id' => $booking->booking_id]) }}" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
                 @endif
@@ -186,7 +186,7 @@ $booking_data = $bookings;
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
+                        <a href="{{ route('booking.detail', ['id' => $booking->booking_id])}}" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
                 @endif
@@ -223,7 +223,7 @@ $booking_data = $bookings;
                         </p>
                     </div>
                     <div class="flex-shrink-0 w-full sm:w-auto">
-                        <a href="#" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
+                        <a href="{{  }}" class="w-full sm:w-auto block text-center bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition">See Details</a>
                     </div>
                 </div>
                 @endif

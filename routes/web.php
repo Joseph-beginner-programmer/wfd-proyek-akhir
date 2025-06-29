@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process');
 
     Route::get('/booking/summary/{id}', [BookingController::class, 'summary'])->name('booking.summary');
-    
+    Route::get('/booking/{id}', [BookingController::class, 'showBookingDetail'])->name('booking.detail');
 });
 
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
@@ -51,7 +51,7 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/bookings', [ReportController::class, 'getBookings'])->name('bookings');
     Route::get('/financial', [ReportController::class, 'getFinancial'])->name('financial');
 });
-Route::post('/admin/update-role', [ReportController::class, 'updateRole'])->name('admin.updateRole');
+Route::post('/report/update-role', [ReportController::class, 'updateRole'])->name('report.updateRole');
 // Route::middleware(['auth', \App\Http\Middleware\RoleMiddleware::class.':admin'])->group(function () {
 
 // });

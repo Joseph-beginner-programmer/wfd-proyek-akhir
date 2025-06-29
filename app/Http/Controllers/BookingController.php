@@ -140,4 +140,18 @@ class BookingController extends Controller
 
         return view('pages.payment', compact('booking', 'venue_id'));
     }
+
+    public function showBookingDetail($id)
+    {
+        // Eager load relasi 'user' dan 'venue'
+        $booking = Booking::with(['user', 'venue'])->findOrFail($id);
+
+        // Otorisasi
+        if (Auth::id() !== $booking->user_id) {
+            abort(403, 'AKSES DITOLAK.');
+        }
+
+        // Kirim data ke view
+        return view('pages.show_detail', compact('booking'));
+    }
 }
