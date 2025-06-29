@@ -55,7 +55,7 @@ class ReportController extends Controller
                 'bookings.start_date',
                 'bookings.end_date',
                 'bookings.status as booking_status',
-                'bookings.total_price',
+                'bookings.price',
                 DB::raw("(CASE WHEN payments.status = 'paid' THEN 'Paid' ELSE 'Unpaid' END) as payment_status"),
                 'bookings.created_at'
             )

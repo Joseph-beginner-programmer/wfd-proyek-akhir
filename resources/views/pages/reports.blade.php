@@ -249,7 +249,7 @@
                     <td class="td-cell">${new Date(booking.start_date).toLocaleDateString('id-ID')}</td>
                     <td class="td-cell">${new Date(booking.end_date).toLocaleDateString('id-ID')}</td>
                     <td class="td-cell"><span class="${getBookingStatusClass(booking.booking_status)}">${booking.booking_status}</span></td>
-                    <td class="td-cell">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(booking.total_price)}</td>
+                    <td class="td-cell">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(booking.price)}</td>
                     <td class="td-cell"><span class="${getPaymentStatusClass(booking.payment_status)}">${booking.payment_status}</span></td>
                     <td class="td-cell">${new Date(booking.created_at).toLocaleString('id-ID')}</td>
                 </tr>
