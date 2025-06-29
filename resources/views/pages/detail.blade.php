@@ -59,8 +59,8 @@
         {{ $selectedDate === $date->format('Y-m-d') ? 'bg-blue-700 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white' }}"
                             data-date="{{ $date->format('Y-m-d') }}" onclick="selectDate(this)">
 
-                            {{ $date->translatedFormat('D') }} {{-- e.g. "Kam" --}}
-                            {{ $date->translatedFormat('d M') }} {{-- e.g. "12 Jun" --}}
+                            {{ $date->translatedFormat('D') }} 
+                            {{ $date->translatedFormat('d M') }} 
                         </div>
                         @endforeach
                     </div>
@@ -71,8 +71,6 @@
 
                         @foreach ($allJadwals as $jadwal)
                         @if (!$jadwal->is_active)
-                        {{-- Menggunakan is_active dari kode lama Anda, ini bisa diganti dengan is_booked --}}
-                        {{-- Tampilan jika SUDAH DI-BOOKING --}}
                         <div
                             class="text-center border bg-gray-50 text-gray-400 rounded-lg cursor-not-allowed">
                             <p class="text-xs">60 Menit</p>
@@ -83,7 +81,6 @@
                             <p class="font-semibold text-sm">Booked</p>
                         </div>
                         @else
-                        {{-- Tampilan jika TERSEDIA (sekarang menjadi checkbox) --}}
                         <div>
                             <input type="checkbox" id="jadwal_{{ $jadwal->jadwal_id }}" name="jadwal_ids[]"
                                 value="{{ $jadwal->jadwal_id }}" class="hidden peer"
@@ -107,15 +104,11 @@
 
                     <input type="hidden" name="booking_date" id="booking_date" value="{{ $selectedDate }}" />
                     <input type="hidden" name="price" id="price-input" value="0">
-                    <!-- Other inputs like venue_id, jadwal_ids[] -->
                     <button id="book-button" type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Book Now</button>
                 </form>
             </div>
         </div>
 
-        {{-- ================================================================= --}}
-        {{-- KOLOM KANAN (SIDEBAR) --}}
-        {{-- ================================================================= --}}
         <div class="lg:col-span-1 mt-10 lg:mt-0">
             <div class="lg:sticky lg:top-8 space-y-6 py-4">
 
@@ -157,27 +150,17 @@
 
 <script>
     function selectDate(element) {
-        // Loop through all date elements
         document.querySelectorAll('#date-selector > div').forEach(div => {
             div.classList.remove('bg-blue-700', 'text-white');
             div.classList.add('text-gray-800');
-
-            // ✅ Remove hover classes when deselected
             div.classList.add('hover:bg-blue-500', 'hover:text-white');
         });
-
-        // ✅ Apply selected styles to clicked element
         element.classList.add('bg-blue-700', 'text-white');
         element.classList.remove('text-gray-800');
-
-        // ✅ Remove hover from the selected item
         element.classList.remove('hover:bg-blue-500', 'hover:text-white');
-
-        // Update the hidden input value
         document.getElementById('booking_date').value = element.getAttribute('data-date');
     }
     document.addEventListener('DOMContentLoaded', function() {
-        // Ambil elemen-elemen yang dibutuhkan
         const jadwalGrid = document.getElementById('jadwal-grid');
         const summaryList = document.getElementById('selected-slots-list');
         const totalDurationEl = document.getElementById('total-duration');
@@ -185,42 +168,31 @@
         const bookButton = document.getElementById('book-button');
 
 
-        // Fungsi untuk mengupdate ringkasan booking
         function updateBookingSummary() {
-            // Dapatkan semua checkbox yang sedang dicentang
             const selectedCheckboxes = document.querySelectorAll('input[name="jadwal_ids[]"]:checked');
 
             let totalDuration = 0;
             let totalPrice = 0;
 
-            // Bersihkan daftar ringkasan
             summaryList.innerHTML = '';
 
             if (selectedCheckboxes.length > 0) {
                 selectedCheckboxes.forEach(checkbox => {
-                    // Hitung total durasi (asumsi 1 slot = 1 jam)
                     totalDuration += 1;
-                    // Ambil harga dari data-price dan tambahkan ke total
                     totalPrice += parseFloat(checkbox.dataset.price);
-
-                    // Buat elemen list untuk ditampilkan di ringkasan
                     const time = checkbox.dataset.time;
                     const listItem = document.createElement('div');
                     listItem.className = 'text-sm flex justify-between';
                     listItem.innerHTML = `<span><i class="far fa-clock mr-2 text-gray-400"></i>Pkl ${time}</span> <span class="font-semibold">Rp${parseFloat(checkbox.dataset.price).toLocaleString('id-ID')}</span>`;
                     summaryList.appendChild(listItem);
                 });
-
-                // Aktifkan tombol booking
                 bookButton.disabled = false;
                 bookButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
                 bookButton.classList.add('bg-blue-500', 'hover:bg-blue-600');
 
             } else {
-                // Jika tidak ada yang dipilih, tampilkan pesan default
                 summaryList.innerHTML = '<p class="text-sm text-gray-400">Pilih minimal satu jadwal untuk memulai.</p>';
 
-                // Nonaktifkan tombol booking
                 bookButton.disabled = true;
                 bookButton.classList.add('bg-gray-400', 'cursor-not-allowed');
                 bookButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
@@ -229,19 +201,13 @@
             document.getElementById('total-price-display').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
             document.getElementById('price-input').value = totalPrice;
         }
-
-        // Tambahkan event listener ke container grid
-        // Ini lebih efisien daripada menambah listener ke setiap checkbox
         if (jadwalGrid) {
             jadwalGrid.addEventListener('change', function(event) {
-                // Pastikan yang berubah adalah checkbox
                 if (event.target.type === 'checkbox') {
                     updateBookingSummary();
                 }
             });
         }
-
-        // Jalankan sekali saat halaman dimuat untuk inisialisasi tombol
         updateBookingSummary();
     });
 </script>

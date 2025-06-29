@@ -18,7 +18,6 @@ class ReportController extends Controller
 
     public function getUsers()
     {
-        // Langsung ambil dari database
         $users = User::select(
             'user_id',
             'name',

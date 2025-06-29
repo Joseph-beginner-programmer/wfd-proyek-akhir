@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('reviews', function (Blueprint $table) {
-            $table->id('review_id'); // Sesuai ERD
+            $table->id('review_id'); 
             $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
             $table->foreignId('venue_id')->constrained('venues', 'venue_id')->onDelete('cascade');
             $table->tinyInteger('rating'); 

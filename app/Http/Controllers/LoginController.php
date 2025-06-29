@@ -14,19 +14,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Validasi input
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Coba login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
 
-        // Kalau gagal
         return back()->withErrors([
             'email' => 'Email or password is incorrect.',
         ]);

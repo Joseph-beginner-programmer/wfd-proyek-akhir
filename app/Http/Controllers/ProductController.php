@@ -56,11 +56,9 @@ class ProductController extends Controller
             'jadwal_venues.*.end_time' => 'required|date_format:H:i|after:jadwal_venues.*.start_time',
         ]);
         $validatedData['user_id'] = Auth::id();
-
-        // Handle file upload
         if ($request->hasFile('image_path')) {
             $path = $request->file('image_path')->store('venues', 'public');
-            $validatedData['image_path'] = $path; // Save the path in DB
+            $validatedData['image_path'] = $path;
         }
 
 
@@ -74,7 +72,6 @@ class ProductController extends Controller
                 'is_active' => true
             ]);
         }
-
 
         return redirect()->route('venues')->with('success', 'Venue created successfully!');
     }

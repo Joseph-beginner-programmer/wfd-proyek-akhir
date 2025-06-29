@@ -137,8 +137,8 @@ class BookingController extends Controller
 
     public function showBookingDetail($id)
     {
-        $booking = Booking::with(['user', 'venue', 'bookingHours.jadwal'])->findOrFail($id);
-        return view('dashboard.show_detail', compact('booking'));
+        $booking = Booking::with(['user', 'venue', 'bookingHours.jadwalVenue'])->findOrFail($id);
+        return view('pages.show_detail', compact('booking'));
     }
 
      public function getPendingBookingCount()

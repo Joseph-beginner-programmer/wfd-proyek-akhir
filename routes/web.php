@@ -1,6 +1,4 @@
-
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VenueController;
@@ -17,21 +15,22 @@ Route::redirect('/', '/landing');
 Route::get('/landing', function () {
     return view('pages.landing');
 })->name('landing');
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 Route::get('/payment/method/{id}', [PaymentController::class, 'showMethod'])->name('payment.method');
-
-
 Route::get('product', [ProductController::class, 'index'])->name('venues');
-Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
 Route::post('/create/post', [ProductController::class, 'store'])->name('venues.store');
+
 Route::get('/about', [ProfileController::class, 'about'])->name('abouts');
 Route::get('/team', [ProfileController::class, 'team'])->name('teams');
 Route::get('/business', [ProfileController::class, 'business'])->name('businesss');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/create', [ProductController::class, 'create'])->name('venues.create');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/detail/{id}', [BookingController::class, 'show'])->name('detail');
+    Route::get('/dashboard1', [BookingController::class, 'index'])->name('dashboard1');
     Route::get('/venues/{venue}/edit', [ProductController::class, 'edit'])->name('venues.edit');
     Route::put('/venues/{venue}', [ProductController::class, 'update'])->name('venues.update');
     Route::delete('/venues/{venue}', [ProductController::class, 'destroy'])->name('venues.destroy');
@@ -55,11 +54,5 @@ Route::patch('/report/update-role', [ReportController::class, 'updateRole'])->na
 
 Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
     ->name('cart.count');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard1', [BookingController::class, 'index'])->name('dashboard1');
-});
-
-Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 
 require __DIR__ . '/auth.php';

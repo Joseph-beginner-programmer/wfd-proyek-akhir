@@ -24,19 +24,16 @@
         .monteserrat-body {
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
-            /* Use the weight you imported */
         }
 
         .monteserrat-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            /* Use the weight you imported */
         }
 
         .monteserrat-heading {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            /* Use the weight you imported */
         }
 
         .text-shadow-glow {

@@ -3,7 +3,6 @@
 @section('content')
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-        {{-- Tombol Kembali --}}
         <div class="mb-6">
             <a href="{{ route('dashboard1') }}" class="text-gray-600 hover:text-gray-900 font-medium flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -16,16 +15,13 @@
 
         <div class="flex flex-col lg:flex-row gap-8">
 
-            {{-- Kolom Kiri: Detail Venue & Jadwal --}}
             <div class="lg:w-2/3 w-full">
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    {{-- Header Detail --}}
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h1 class="text-2xl font-bold text-gray-800">{{ $booking->venue->name }}</h1>
                             <p class="text-gray-500">{{ $booking->venue->address }}</p>
                         </div>
-                        {{-- Menggunakan kolom 'booking_status' --}}
                         <span
                             class="text-sm font-semibold px-3 py-1 rounded-full
                         @if ($booking->booking_status == 'confirmed') bg-green-100 text-green-800 @endif
@@ -40,7 +36,6 @@
                     = <img src="{{ asset('storage/' . $booking->venue->image_path) }}"
                         alt="Foto Venue {{ $booking->venue->name }}" class="w-full h-64 object-cover rounded-lg mb-6">
 
-                    {{-- Detail Jadwal --}}
                     <div class="mb-6">
                         <h2 class="text-xl font-semibold mb-3 border-b pb-2">Jadwal Booking</h2>
 
@@ -49,10 +44,8 @@
                                 class="font-semibold">{{ \Carbon\Carbon::parse($booking->booking_date)->isoFormat('dddd, D MMMM YYYY') }}</span>
                         </p>
 
-                        {{-- Loop melalui setiap jam yang dipesan untuk booking ini --}}
                         <ul class="space-y-2">
                             @forelse ($booking->bookingHours as $bookedHour)
-                                {{-- Pastikan relasi jadwal tidak null untuk menghindari error --}}
                                 @if ($bookedHour->jadwalVenue)
                                     <li class="flex items-center bg-gray-50 p-3 rounded-md">
                                         <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor"
@@ -74,7 +67,6 @@
                         </ul>
                     </div>
 
-                    {{-- Data Penyewa --}}
                     <div>
                         <h2 class="text-xl font-semibold mb-3 border-b pb-2">Data Penyewa</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -86,26 +78,18 @@
                                 <p class="text-sm text-gray-500">Email</p>
                                 <p class="font-medium text-gray-800">{{ $booking->users->email }}</p>
                             </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Nomor Ponsel</p>
-                                <p class="font-medium text-gray-800">{{ $booking->users->phone ?? 'Tidak ada' }}</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- Kolom Kanan: Rincian Biaya --}}
             <div class="lg:w-1/3 w-full">
                 <div class="bg-white p-6 rounded-lg shadow-md sticky top-8">
                     <h2 class="text-xl font-semibold mb-4 border-b pb-2">Rincian Biaya</h2>
-
-                    {{-- Disederhanakan karena hanya ada kolom 'price' --}}
                     <div class="space-y-3">
                         <div class="border-t my-2"></div>
                         <div class="flex justify-between text-lg font-bold">
                             <span>Total Bayar</span>
-                            {{-- Menggunakan kolom 'price' --}}
                             <span>Rp {{ number_format($booking->price, 0, ',', '.') }}</span>
                         </div>
                     </div>

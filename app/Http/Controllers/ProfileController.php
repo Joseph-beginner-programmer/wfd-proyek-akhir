@@ -13,17 +13,17 @@ class ProfileController extends Controller
 { 
     public function business()
     {
-        return view('pages.business'); // <-- Memberi tahu Laravel untuk membuka file view
+        return view('pages.business');
     }
 
     public function team()
     {
-        return view('pages.team'); // <-- Memberi tahu Laravel untuk membuka file view
+        return view('pages.team');
     }
 
     public function about()
     {
-        return view('pages.about'); // <-- Memberi tahu Laravel untuk membuka file view
+        return view('pages.about'); 
     }
 
     /**

@@ -4,8 +4,6 @@
 <body class="bg-gray-50 font-poppins">
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        {{-- Header Halaman --}}
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Venue Saya</h1>
@@ -17,9 +15,7 @@
             </a>
         </div>
 
-        {{-- Konten Utama --}}
         @if($venues->isEmpty())
-            {{-- Tampilan Jika Tidak Ada Venue (Empty State) --}}
             <div class="text-center bg-white p-12 rounded-xl shadow-md border border-gray-200">
                 <i class="fas fa-store-slash fa-4x text-gray-300 mb-4"></i>
                 <h3 class="text-xl font-semibold text-gray-700">Anda Belum Punya Venue</h3>
@@ -30,12 +26,10 @@
                 </a>
             </div>
         @else
-            {{-- Grid untuk Daftar Venue --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($venues as $venue)
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                         
-                        {{-- Gambar Venue --}}
                         <div class="relative">
                             <img src="{{ $venue->image_path ? asset('storage/' . $venue->image_path) : 'https://via.placeholder.com/400x250.png?text=No+Image' }}"
                                  alt="Gambar {{ $venue->name }}" class="w-full h-56 object-cover">
@@ -44,7 +38,6 @@
                             </div>
                         </div>
 
-                        {{-- Konten Card --}}
                         <div class="p-6 flex-grow flex flex-col">
                             <h3 class="text-xl font-bold text-gray-900">{{ $venue->name }}</h3>
                             <p class="text-sm text-gray-500 mt-1">{{ $venue->tipeVenue->type_name }}</p>
@@ -54,16 +47,14 @@
                                 <span>{{ $venue->provinsi }}</span>
                             </div>
 
-                            <div class="flex-grow"></div> {{-- Pendorong untuk meletakkan tombol di bawah --}}
+                            <div class="flex-grow"></div> 
 
-                            {{-- Tombol Aksi --}}
                             <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-start gap-3">
                                 <a href="{{ route('venues.edit', $venue->venue_id) }}"
                                    class="flex-1 text-center bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">
                                    <i class="fas fa-pencil-alt mr-1"></i> Edit
                                 </a>
 
-                                {{-- Tombol Delete dengan Form --}}
                                 <form action="{{ route('venues.destroy', $venue->venue_id) }}" method="POST" class="flex-1" onsubmit="return confirm('Apakah Anda yakin ingin menghapus venue \'{{ $venue->name }}\'? Tindakan ini tidak dapat dibatalkan.');">
                                     @csrf
                                     @method('DELETE')

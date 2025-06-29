@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookingHour extends Model
 {
-    protected $table = 'booking_hour'; // Explicitly define table name if not plural
+    protected $table = 'booking_hour';
 
     protected $fillable = [
         'booking_id',
-        'booking_hour_id', // FK to jadwal_venue
+        'booking_hour_id',
         'is_active',
-        'jadwal_id'       // or any other additional fields
+        'jadwal_id'      
     ];
 
     public function booking()
