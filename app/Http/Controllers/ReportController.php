@@ -57,16 +57,9 @@ class ReportController extends Controller
 
     public function getFinancial()
     {
-        // 1. Total revenue = sum of all payment amounts
         $totalRevenue = Payment::sum('total_price');
-
-        // 2. Completed bookings count
         $completedBookings = Booking::where('booking_status', 'confirmed')->count();
-
-        // 3. Pending transactions = bookings that have no payment yet
         $pendingTransactions = Booking::doesntHave('payment')->count();
-
-        // 4. Transactions list (only from existing payments)
         $transactions = Payment::with('booking.user')
             ->latest()
             ->get()
