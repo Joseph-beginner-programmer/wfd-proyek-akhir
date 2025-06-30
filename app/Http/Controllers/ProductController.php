@@ -76,9 +76,24 @@ class ProductController extends Controller
         return redirect()->route('venues')->with('success', 'Venue created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function search(Request $request)
+    {
+        $venues = Venue::with('tipeVenue')
+            ->when(
+                $request->filled('type'),
+                fn($q) =>
+                $q->whereHas(
+                    'tipeVenue',
+                    fn($q2) =>
+                    $q2->whereRaw('LOWER(type_name) LIKE ?', ['%' . strtolower($request->type) . '%'])
+                )
+            )
+            ->get();
+
+        
+        return view('pages.venue-cards', compact('venues'));
+    }
+
     public function show(string $id) {}
 
     /**
@@ -127,7 +142,7 @@ class ProductController extends Controller
             $venue->jadwal_venues()->create([
                 'start_time' => $jadwal['start_time'],
                 'end_time' => $jadwal['end_time'],
-                'is_active' => true, 
+                'is_active' => true,
             ]);
         }
 

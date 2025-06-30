@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/booking/summary/{id}', [BookingController::class, 'summary'])->name('booking.summary');
     Route::get('/booking/{id}', [BookingController::class, 'showBookingDetail'])->name('booking.detail');
+
+    Route::get('/venues/search', [ProductController::class, 'search']);
 });
 
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
