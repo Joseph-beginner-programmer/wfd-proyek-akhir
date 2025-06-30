@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.report-layout')
 
 @section('content')
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">

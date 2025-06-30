@@ -51,7 +51,6 @@
     <div>
         @yield('content')
     </div>
-    @include('layouts.footer')
     
     @stack('scripts')
 </body>
