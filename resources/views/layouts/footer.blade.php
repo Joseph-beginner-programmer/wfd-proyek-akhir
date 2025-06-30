@@ -5,13 +5,11 @@
     overflow: hidden;
   }
 
-  /* PERBAIKAN: Memastikan Material Icons dirender dengan benar */
   .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
-    /* Ukuran ikon default */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -19,14 +17,9 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-
-    /* Dukungan untuk WebKit (Chrome, Safari, dll) */
     -webkit-font-smoothing: antialiased;
-    /* Dukungan untuk Firefox */
     text-rendering: optimizeLegibility;
-    /* Dukungan untuk IE */
     -moz-osx-font-smoothing: grayscale;
-    /* Aktifkan fitur ligatur standar di browser */
     font-feature-settings: 'liga';
   }
 </style>
@@ -35,13 +28,11 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8">
 
-      <!-- Tentang Kami -->
       <section aria-labelledby="footer-about" class="flex flex-col">
         <h3 id="footer-about" class="text-lg font-semibold text-white tracking-wider uppercase mb-5 pb-2 border-b-2 border-blue-700">Tentang Kami</h3>
         <p class="text-sm text-blue-200 leading-relaxed mb-6">
           Platform all-in-one untuk menemukan dan memesan venue terbaik untuk setiap momen berharga Anda. Ciptakan kenangan tak terlupakan bersama kami.
         </p>
-        <!-- PERBAIKAN: Mengembalikan ke desain ikon sosial media yang konsisten -->
         <div class="flex items-center gap-4 mt-auto" role="list">
           <a href="#" aria-label="Facebook" role="listitem" title="Facebook" class="w-10 h-10 rounded-full bg-blue-700 hover:bg-white hover:text-blue-700 transition-all duration-300 ease-in-out transform hover:scale-110 flex items-center justify-center text-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -66,7 +57,6 @@
         </div>
       </section>
 
-      <!-- Kategori -->
       <section aria-labelledby="footer-categories">
         <h3 id="footer-categories" class="text-lg font-semibold text-white tracking-wider uppercase mb-5 pb-2 border-b-2 border-blue-700">Kategori</h3>
         <ul class="text-sm space-y-3">
@@ -78,7 +68,6 @@
         </ul>
       </section>
 
-      <!-- Dukungan -->
       <section aria-labelledby="footer-support">
         <h3 id="footer-support" class="text-lg font-semibold text-white tracking-wider uppercase mb-5 pb-2 border-b-2 border-blue-700">Dukungan</h3>
         <ul class="text-sm space-y-3">
@@ -89,7 +78,6 @@
         </ul>
       </section>
 
-      <!-- Newsletter -->
       <section aria-labelledby="footer-newsletter">
         <h3 id="footer-newsletter" class="text-lg font-semibold text-white tracking-wider uppercase mb-5 pb-2 border-b-2 border-blue-700">Newsletter</h3>
         <p class="text-sm text-blue-200 leading-relaxed mb-4">
@@ -103,13 +91,11 @@
             aria-label="Email untuk berlangganan newsletter"
             class="py-2 px-4 rounded-md border-2 border-blue-700 bg-blue-800 text-white placeholder-blue-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-blue-700 transition-colors"
             required />
-          <button type="submit" class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 ease-in-out text-white font-bold py-2 px-4 rounded-md cursor-pointer transform hover:scale-105">Berlangganan</button>
+          <a href="#" class="bg-blue-600 hover:bg-blue-500 transition-all duration-300 ease-in-out text-white font-bold py-2 px-4 rounded-md cursor-pointer transform hover:scale-105">Berlangganan</a>
         </form>
 
-        <!-- PERBAIKAN: Mengembalikan ke desain ikon pembayaran yang konsisten -->
         <div class="mt-6">
           <h4 class="text-base font-semibold text-blue-300 mb-3">Metode Pembayaran</h4>
-          <!-- PERBAIKAN: Mengganti tombol menjadi bulatan -->
           <div class="flex items-center flex-wrap gap-2" aria-label="Metode Pembayaran">
             <button type="button" title="Mastercard" class="h-10 w-10 flex items-center justify-center bg-gray-800 rounded-full p-2 transform transition hover:scale-110">
               <svg role="img" viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg" class="h-full w-auto"><defs><linearGradient id="a" x1="0%" x2="100%" y1="50%" y2="50%"><stop offset="0%" stop-color="#FF5F00"/><stop offset="100%" stop-color="#FF9F00"/></linearGradient></defs><circle cx="10" cy="10" r="10" fill="#EA001B"/><circle cx="22" cy="10" r="10" fill="url(#a)"/></svg>

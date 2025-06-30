@@ -50,7 +50,7 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/bookings', [ReportController::class, 'getBookings'])->name('bookings');
     Route::get('/financial', [ReportController::class, 'getFinancial'])->name('financial');
 });
-Route::patch('/report/update-role', [ReportController::class, 'updateRole'])->name('reports.updateRole');
+Route::post('/report.update-role', [ReportController::class, 'updateRole'])->name('reports.updateRole');
 
 Route::get('/cart/count', [BookingController::class, 'getPendingBookingCount'])
     ->name('cart.count');

@@ -3,7 +3,6 @@
 @section('content')
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
         <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Admin Report</h1>
-
         <div class="mb-4 border-b border-gray-200">
             <nav class="-mb-px flex space-x-4 md:space-x-8" aria-label="Tabs" id="report-tabs">
                 <button data-tab-target="#users-report" class="tab-button active-tab">

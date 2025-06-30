@@ -35,7 +35,7 @@ class ReportController extends Controller
             'role' => 'required|in:admin,user'
         ]);
 
-        $user = User::where('user_id', $request->user_id)->firstOrFail();
+        $user = User::findOrFail($request->user_id);
         $user->role = strtolower($request->role);
         $user->save();
 
